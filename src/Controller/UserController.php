@@ -14,6 +14,13 @@ class UserController
 	public function register()
 	{
 		$view = new View('site/user/register.phtml', true);
+		$view->controller = 'user';
+		$view->viewName = 'register';
 		return $view->render();
+	}
+
+	public function insert()
+	{
+		echo json_encode((new \Crud\Model\ModelUsuario())->insert());
 	}
 }

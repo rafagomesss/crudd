@@ -1,10 +1,21 @@
 	<div class="col">
 		<h2>hello</h2>
-		<?php foreach ($this->users as $key => $user): ?>
-			<ul>
-				<li><?= $user->id;?></li>
-				<li><?= $user->email;?></li>
-				<li><?= $user->password;?></li>
-			</ul>
-		<?php endforeach ?>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>E-mail</th>
+					<th>Senha</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($this->users as $key => $user): ?>
+				<tr>
+					<td><?= $user->id;?></td>
+					<td><?= $user->email;?></td>
+					<td><?= $user->password;?></td>
+				</tr>
+			<?php endforeach ?>
+			</tbody>
+		</table>
 	</div>

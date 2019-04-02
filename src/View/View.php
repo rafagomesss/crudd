@@ -19,6 +19,7 @@ class View
 	{
 		$this->data[$index] = $value;
 	}
+
 	public function __get($index)
 	{
 		return $this->data[$index];

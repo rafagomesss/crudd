@@ -10,10 +10,4 @@ class ModelUsuario extends Model
 		$this->table = 'user_access';
 		parent::__construct();
 	}
-
-	/*public function listarUsuarios()
-	{
-		$stmt = $this->conexao->query("SELECT * FROM USER_ACCESS");
-		return $stmt->fetchAll();
-	}*/
 }
