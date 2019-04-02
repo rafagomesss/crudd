@@ -1,0 +1,10 @@
+	<div class="col">
+		<h2>hello</h2>
+		<?php foreach ($this->users as $key => $user): ?>
+			<ul>
+				<li><?= $user->id;?></li>
+				<li><?= $user->email;?></li>
+				<li><?= $user->password;?></li>
+			</ul>
+		<?php endforeach ?>
+	</div>
