@@ -40,4 +40,17 @@ class Model extends Connection
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
 		}
 	}
+
+	public function delete($id = null)
+	{
+		$id = $id ?? filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+		try{
+			$stmt = $this->conexao->prepare("DELETE FROM {$this->table} WHERE id = :id");
+			$stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+			$stmt->execute();
+			return ['message' => 'Registro excluído com sucesso!'];
+		} catch (\PDOException $e) {
+			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
+		}
+	}
 }

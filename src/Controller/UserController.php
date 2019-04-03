@@ -1,14 +1,27 @@
 <?php
 namespace Crud\Controller;
 
-use Crud\Controller\UserController,
-	Crud\View\View;
+use Crud\{
+	Controller\UserController,
+	View\View,
+	Model\ModelUsuario
+};
 
 class UserController
 {
+	protected $model;
+
 	public function __construct()
 	{
-		
+		$this->model = new ModelUsuario();
+	}
+
+	public function list()
+	{
+		$view = new View('site/user/list.phtml', true);
+		$view->controller = 'user';
+		$view->users = $this->model->findAll();
+		return $view->render();
 	}
 
 	public function register()
@@ -21,6 +34,11 @@ class UserController
 
 	public function insert()
 	{
-		echo json_encode((new \Crud\Model\ModelUsuario())->insert());
+		echo json_encode($this->model->insert());
+	}
+
+	public function delete()
+	{
+		echo json_encode($this->model->delete());
 	}
 }
