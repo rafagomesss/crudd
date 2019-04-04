@@ -7,8 +7,13 @@ $(document).ready(function() {
 			dataType: 'JSON',
 			data: data,
 		}).done(function(data) {
+			let message = data.message;
+			let classes = 'success';
+			let modal = '#modal-alert';
+			let redirect = '/user/list';
 			if (data.erro) {
-				let message = '';
+				classes = 'warning';
+				redirect = '';
 				switch (data.code) {
 					case '23000':
 						message = 'O e-mail informado já existe!';
@@ -17,13 +22,13 @@ $(document).ready(function() {
 						message = 'Ocorreu um erro ao salvar o registro';
 						break;
 				}
-				alert(message);
-			} else {
-				alert('Registro salvo com sucesso!');
-				window.location.href = '/home';
 			}
+			configModalAlert(modal, message, classes, redirect);
 		}).fail(function() {
-			console.log("error");
+			configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
 		});
 	});
+
 });
+
+

@@ -5,26 +5,24 @@ $('.btnUserDelete').on('click', function() {
 		dataType: 'JSON',
 		data: {id: $(this).data('user-delete')}
 	}).done(function(data) {
-		console.log(data)
 		let message = data.message;
+		let classes = 'success';
+		let modal = '#modal-alert';
+		let redirect = '/user/list';
 		if (data.erro) {
+			classes = 'danger';
+			redirect = '';
 			switch (data.code) {
 				case '23000':
 					message = 'O e-mail informado já existe!';
-				break;
-				case 1:
-					message = 'sssss!';
 				break;
 				default:
 					message = data.message;
 				break;
 			}
-			alert(message);
-		} else {
-			alert(message);
-			window.location.href = '/user/list';
 		}
+		configModalAlert(modal, message, classes, redirect);
 	}).fail(function() {
-		console.log("error");
+		configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
 	});
 });
