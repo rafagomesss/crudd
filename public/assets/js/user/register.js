@@ -10,6 +10,7 @@ $(document).ready(function() {
 				dataType: 'JSON',
 				data: data,
 			}).done(function(data) {
+				console.log(data)
 				let message = data.message;
 				let classes = 'success';
 				let modal = '#modal-alert';
@@ -27,7 +28,8 @@ $(document).ready(function() {
 					}
 				}
 				configModalAlert(modal, message, classes, redirect);
-			}).fail(function() {
+			}).fail(function(data) {
+				console.log(data.responseText)
 				configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
 			});
 		}

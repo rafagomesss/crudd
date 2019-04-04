@@ -1,6 +1,17 @@
 <h2>Cadastrar Usuário</h2>
 <form id="formUserAccess" name="formUserAccess" method="POST" action="">
 	<div class="form-group">
+		<label for="access_level">Nível de Acesso</label>
+		<select class="form-control" name="access_level">
+			<option value="">Selecione...</option>
+			<?php if (is_array($this->data['accessLevels']) && !empty($this->data['accessLevels'])) : ?>
+				<?php foreach ($this->accessLevels as $access) : ?>
+					<option value="<?= $access->id;?>"><?= $access->description;?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
+	</div>
+	<div class="form-group">
 		<label for="email">E-mail</label>
 		<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@exemplo.com.br" data-validation="required">
 		<small id="emailHelp" class="form-text text-info">Nunca iremos compartilhar seu e-mail com ninguém.</small>

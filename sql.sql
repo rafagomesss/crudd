@@ -20,10 +20,10 @@ CREATE TABLE IF NOT EXISTS USER_ACCESS
 	password VARCHAR(72) NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	updated_at DATETIME,
-	acess_level_id INT(10) UNSIGNED NOT NULL,
+	access_level_id INT(10) UNSIGNED NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT user_access_level_id
-	FOREIGN KEY fk_user_acess_level_id(acess_level_id)
+	FOREIGN KEY fk_user_acess_level_id(access_level_id)
 	REFERENCES ACCESS_LEVEL(id)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION

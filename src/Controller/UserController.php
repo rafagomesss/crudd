@@ -29,6 +29,7 @@ class UserController
 		$view = new View('site/user/register.phtml', true);
 		$view->controller = 'user';
 		$view->viewName = 'register';
+		$view->accessLevels = $this->model->findAll('access_level');
 		return $view->render();
 	}
 
