@@ -4,7 +4,7 @@ namespace Crud\Controller;
 use Crud\{
 	Controller\UserController,
 	View\View,
-	Model\ModelUsuario
+	Model\ModelUser
 };
 
 class UserController
@@ -13,7 +13,7 @@ class UserController
 
 	public function __construct()
 	{
-		$this->model = new ModelUsuario();
+		$this->model = new ModelUser();
 	}
 
 	public function list()

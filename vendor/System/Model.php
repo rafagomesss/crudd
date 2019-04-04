@@ -69,7 +69,7 @@ class Model extends Connection
 			if ($stmt->execute()) {
 				return ['message' => 'Registro atualizado com sucesso!'];
 			} else {
-				throw new \PDOException("Registro não encontrado", 1);
+				throw new \PDOException("Falha ao atualizar registro", 2);
 			}
 		} catch (\PDOException $e) {
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
