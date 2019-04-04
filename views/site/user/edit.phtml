@@ -1,0 +1,14 @@
+<h2>Atualizar Dados</h2>
+<form id="formUserEdit" name="formUserEdit" method="POST" action="/user/update">
+	<input type="hidden" class="form-control" id="id" name="id" value="<?= $this->user->id;?>">
+	<div class="form-group">
+		<label for="email">E-mail</label>
+		<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@exemplo.com.br" required value="<?= $this->user->email;?>">
+		<small id="emailHelp" class="form-text text-info">Nunca iremos compartilhar seu e-mail com ninguém.</small>
+	</div>
+	<div class="form-group">
+		<label for="password">Senha</label>
+		<input type="password" class="form-control" id="password" name="password" placeholder="**********" required>
+	</div>
+	<button id="btnFormUserAccess" type="submit" class="btn btn-primary">Salvar</button>
+</form>
