@@ -11,23 +11,31 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($this->users as $key => $user): ?>
+			<?php if (is_array($this->data['users']) && !empty($this->data['users'])): ?>
+				<?php foreach ($this->users as $key => $user): ?>
+					<tr>
+						<td><?= $user->id;?></td>
+						<td><?= $user->email;?></td>
+						<td><?= $user->password;?></td>
+						<td class="text-center">
+							<a href="/user/edit/<?= $user->id;?>" title="Editar" class="text-info btnUserEdit">
+								<i class="far fa-edit"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<a title="Excluir" class="text-danger pointer btnUserDelete" data-user-delete="<?= $user->id;?>">
+								<i class="far fa-minus-square"></i>
+							</a>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
 				<tr>
-					<td><?= $user->id;?></td>
-					<td><?= $user->email;?></td>
-					<td><?= $user->password;?></td>
-					<td class="text-center">
-						<a href="/user/edit/<?= $user->id;?>" title="Editar" class="text-info btnUserEdit">
-							<i class="far fa-edit"></i>
-						</a>
-					</td>
-					<td class="text-center">
-						<a title="Excluir" class="text-danger pointer btnUserDelete" data-user-delete="<?= $user->id;?>">
-							<i class="far fa-minus-square"></i>
-						</a>
+					<td class="text-center" colspan="5">
+						<span class="font-weight-light text-danger font-weight-bold">Nenhum usuário cadastrado!</span>
 					</td>
 				</tr>
-			<?php endforeach ?>
+			<?php endif; ?>
 		</tbody>
 	</table>
 </div>

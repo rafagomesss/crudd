@@ -2,12 +2,14 @@
 			</div> <!-- div row -->
 		</div> <!-- div container-fluid -->
 	<script src="<?= JS_PATH;?>/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script src="<?= JS_PATH;?>/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="<?= JS_PATH;?>/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?= JS_PATH;?>/functions.js" type="text/javascript"></script>
 
 	<?php if (isset($this->data['controller']) && isset($this->data['viewName'])) : ?>
 
 		<script src="<?= JS_PATH;?>/<?= $this->controller;?>/<?= $this->viewName;?>.js" type="text/javascript"></script>
+		<script src="<?= JS_PATH;?>/<?= $this->controller;?>/<?= $this->controller;?>.js" type="text/javascript"></script>
 
 	<?php elseif (isset($this->data['controller'])) : ?>
 
