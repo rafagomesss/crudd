@@ -36,7 +36,6 @@ class UserController
 	{
 		$view = new View('site/user/edit.phtml', true);
 		$view->controller = 'user';
-		$view->viewName = 'edit';
 		$view->user = $this->model->find($id);
 		return $view->render();
 	}
@@ -54,9 +53,6 @@ class UserController
 	public function update()
 	{
 		$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		$retorno = $this->model->update($data);
-		if(!array_key_exists('erro', $retorno)) {
-			header('Location: /user/list');
-		}
+		echo json_encode($this->model->update($data));
 	}
 }
