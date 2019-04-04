@@ -48,7 +48,11 @@ class Model extends Connection
 			$stmt = $this->conexao->prepare("DELETE FROM {$this->table} WHERE id = :id");
 			$stmt->bindParam(':id', $id, \PDO::PARAM_INT);
 			$stmt->execute();
-			return ['message' => 'Registro excluído com sucesso!'];
+			if ($stmt->rowCount() > 0) {
+				return ['message' => 'Registro excluído com sucesso!'];
+			} else {
+				throw new \PDOException("Registro não encontrado", 1);
+			}
 		} catch (\PDOException $e) {
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
 		}

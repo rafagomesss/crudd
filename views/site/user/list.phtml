@@ -1,0 +1,34 @@
+<div class="col">
+	<h2>Lista de Usuários</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>E-mail</th>
+				<th>Senha</th>
+				<th>Editar</th>
+				<th>Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->users as $key => $user): ?>
+				<tr>
+					<td><?= $user->id;?></td>
+					<td><?= $user->email;?></td>
+					<td><?= $user->password;?></td>
+					<td class="text-center">
+						<a href="" title="Editar" class="text-info btnUserEdit">
+							<i class="far fa-edit"></i>
+						</a>
+					</td>
+					<td class="text-center">
+						<a title="Excluir" class="text-danger pointer btnUserDelete" data-user-delete="<?= $user->id;?>">
+							<i class="far fa-minus-square"></i>
+						</a>
+					</td>
+				</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
+</div>
+
