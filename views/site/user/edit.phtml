@@ -1,14 +1,17 @@
 <h2>Atualizar Dados</h2>
 <form id="formUserEdit" name="formUserEdit" method="POST" action="/user/update">
 	<input type="hidden" class="form-control" id="id" name="id" value="<?= $this->user->id;?>">
-	<select class="form-control" name="access_level">
-		<option value="">Selecione...</option>
-		<?php if (is_array($this->data['accessLevels']) && !empty($this->data['accessLevels'])) : ?>
-		<?php foreach ($this->accessLevels as $access) : ?>
-			<option value="<?= $access->id;?>"><?= $access->description;?></option>
-		<?php endforeach; ?>
-	<?php endif; ?>
-	</select>
+	<div class="form-group">
+		<label for="access_level">Nível de Acesso</label>
+		<select class="form-control" name="access_level">
+			<option value="">Selecione...</option>
+			<?php if (is_array($this->data['accessLevels']) && !empty($this->data['accessLevels'])) : ?>
+				<?php foreach ($this->accessLevels as $access) : ?>
+					<option value="<?= $access->id;?>" <?= $access->id === $this->user->access_level_id ? 'selected' : '';?>><?= $access->description;?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
+	</div>
 	<div class="form-group">
 		<label for="email">E-mail</label>
 		<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@exemplo.com.br" required value="<?= $this->user->email;?>">

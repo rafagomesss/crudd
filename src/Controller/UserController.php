@@ -38,6 +38,7 @@ class UserController
 		$view = new View('site/user/edit.phtml', true);
 		$view->controller = 'user';
 		$view->user = $this->model->find($id);
+		$view->accessLevels = $this->model->findAll('access_level');
 		return $view->render();
 	}
 
