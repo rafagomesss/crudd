@@ -63,10 +63,11 @@ class Model extends Connection
 	public function update(array $data): array
 	{
 		try{
-			$stmt = $this->conexao->prepare("UPDATE {$this->table} SET email = :email, password = :password WHERE id = :id");
+			$stmt = $this->conexao->prepare("UPDATE {$this->table} SET email = :email, password = :password, access_level_id = :access_level_id WHERE id = :id");
 			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
 			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
 			$stmt->bindValue(':id', $data['id'], \PDO::PARAM_INT);
+			$stmt->bindValue(':access_level_id', $data['access_level'], \PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->execute()) {
 				return ['message' => 'Registro atualizado com sucesso!'];
