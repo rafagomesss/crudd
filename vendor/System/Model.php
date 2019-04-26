@@ -78,4 +78,12 @@ class Model extends Connection
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
 		}
 	}
+
+	public function findBy(array $dados)
+	{
+		$stmt = $this->conexao->prepare("SELECT * FROM {$this->table} WHERE email = :email");
+		$stmt->bindParam(':email', $dados['email'], \PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetch();
+	}
 }
