@@ -79,7 +79,7 @@ class Model extends Connection
 		}
 	}
 
-	public function findBy(array $dados): array
+	public function findBy(array $dados): \stdClass
 	{
 		$stmt = $this->conexao->prepare("SELECT * FROM {$this->table} WHERE email = :email");
 		$stmt->bindParam(':email', $dados['email'], \PDO::PARAM_STR);
