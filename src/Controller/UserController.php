@@ -20,7 +20,7 @@ class UserController
 	{
 		$view = new View('site/user/list.phtml', true);
 		$view->controller = 'user';
-		$view->users = $this->model->findAll();
+		$view->users = $this->model->executeProcedure('listUserAccess');
 		return $view->render();
 	}
 

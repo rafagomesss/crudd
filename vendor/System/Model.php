@@ -35,7 +35,7 @@ class Model extends Connection
 			$stmt = $this->conexao->prepare("INSERT INTO {$this->table} (email, password, access_level_id) VALUES (:email, :password, :access_level_id)");
 			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
 			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
-			$stmt->bindValue(':access_level_id', $data['access_level'], \PDO::PARAM_INT);
+			$stmt->bindValue(':access_level_id', $data['access_level'] ?? 2, \PDO::PARAM_INT);
 			$stmt->execute();
 			return ['message' => 'Registro salvo com sucesso!'];
 		} catch (\PDOException $e) {
@@ -79,11 +79,17 @@ class Model extends Connection
 		}
 	}
 
-	public function findBy(array $dados)
+	public function findBy(array $dados): array
 	{
 		$stmt = $this->conexao->prepare("SELECT * FROM {$this->table} WHERE email = :email");
 		$stmt->bindParam(':email', $dados['email'], \PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetch();
+	}
+
+	public function executeProcedure(string $procedureName)
+	{
+		$stmt = $this->conexao->query("CALL {$procedureName}");
+		return $stmt->fetchAll();
 	}
 }

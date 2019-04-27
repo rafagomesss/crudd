@@ -8,4 +8,4 @@ use System\{
 };
 
 Session::start();
-Router::validarRota();
+Router::validateRoute();

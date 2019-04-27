@@ -52,3 +52,25 @@ CREATE TABLE IF NOT EXISTS user
 	ON UPDATE NO ACTION
 ) ENGINE = InnoDB DEFAULT CHARSET = Latin1;
 
+
+/**
+ * STORED PROCEDURES
+ */
+
+/**
+ * @table user_access
+ * Lista todos os usuários de acesso ao sistema
+ */
+DELIMITER $$
+CREATE PROCEDURE listUserAccess()
+	BEGIN
+		SELECT
+			ua.id
+			, ua.email
+			, al.description AS level
+		FROM user_access AS ua
+		INNER JOIN access_level AS al
+			ON al.id = ua.access_level_id;
+	END $$
+DELIMITER ;
+

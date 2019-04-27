@@ -19,18 +19,18 @@ class AuthController
     private function validatePassword(\stdClass $data): bool
     {
         if (password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $data->password)) {
-            $_SESSION['USER'] = $data->email;
-            $_SESSION['ACCESS_LEVEL'] = $data->access_level_id;
+            Session::set('USER', $data->email);
+            Session::set('ACCESS_LEVEL', $data->access_level_id);
             header('Location: /user/list');
         } else {
-            unset($_SESSION);
+            Session::destroy();
             header('Location: /auth');
         }
     }
 
     public function index()
     {
-        return (new View('site/login.phtml', true))->render();
+        return (new View('authentication/login.phtml', true))->render();
     }
 
     public function validateLogin()
@@ -48,5 +48,17 @@ class AuthController
     {
         Session::destroy();
         header('Location: /');
+    }
+
+    public function createAccount()
+    {
+        $view = new View('authentication/register.phtml', true);
+        $view->controller = 'auth';
+        return $view->render();
+    }
+
+    public function register()
+    {
+        echo json_encode((new ModelUser())->insert());
     }
 }

@@ -16,7 +16,7 @@
 					<tr>
 						<td><?= $user->id;?></td>
 						<td><?= $user->email;?></td>
-						<td><?= $user->password;?></td>
+						<td><?= mb_convert_case($user->level, MB_CASE_TITLE, "UTF-8");?></td>
 						<td class="text-center">
 							<a href="/user/edit/<?= $user->id;?>" title="Editar" class="text-info btnUserEdit">
 								<i class="far fa-edit"></i>
