@@ -1,10 +1,8 @@
 <?php
 namespace Crud\Controller;
 
-use Crud\{
-    Model\ModelUser,
-    View\View
-};
+use Crud\Model\ModelUser;
+use Crud\View\View;
 use System\Session\Session;
 
 class AuthController
@@ -49,7 +47,7 @@ class AuthController
                 Session::destroy();
                 $response = [
                     'erro' => true,
-                    'message' => 'Dados inválidos!',
+                    'message' => 'Senha inválida!',
                     'redirect' => '/auth',
                     'class' => 'warning'
                 ];

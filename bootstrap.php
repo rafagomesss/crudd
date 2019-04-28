@@ -3,7 +3,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'a
 
 define('DIR_ROOT', dirname($_SERVER['DOCUMENT_ROOT']));
 
-define('ASSETS_PATH',  '/assets');
+define('ASSETS_PATH', '/assets');
 define('CSS_PATH', ASSETS_PATH . '/css');
 define('JS_PATH', ASSETS_PATH . '/js');
 define('IMG_PATH', ASSETS_PATH . '/img');

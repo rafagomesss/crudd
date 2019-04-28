@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS user
 	address VARCHAR(255) NOT NULL,
     address_num VARCHAR(5) NOT NULL,
     address_compl VARCHAR(80),
+	user_access_id INT(10) UNSIGNED NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	updated_at DATETIME,
-	user_acess_id INT(10) UNSIGNED NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT user_access_id
-	FOREIGN KEY fk_user_acess_id(user_acess_id)
+	FOREIGN KEY fk_user_access_id(user_access_id)
 	REFERENCES user_access(id)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION

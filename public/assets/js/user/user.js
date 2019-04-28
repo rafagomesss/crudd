@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$("#formUserAccess, #formUserEdit").validate({
-		errorClass: "text-danger small",
-		validClass: "text-info font-weight-light small",
+		errorClass: "is-invalid small text-danger",
+		validClass: "is-valid",
 		rules: {
 			email: {
 				required: true,
