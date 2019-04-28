@@ -4,7 +4,8 @@ namespace Crud\Controller;
 use Crud\{
 	Controller\UserController,
 	View\View,
-	Model\ModelUser
+	Model\ModelUser,
+	Model\AccessLevelModel
 };
 
 class UserController
@@ -25,7 +26,7 @@ class UserController
 	{
 		$view = new View('site/user/list.phtml', true);
 		$view->controller = 'user';
-		$view->users = $this->model->executeProcedure('listUserAccess');
+		$view->users = $this->model->executeProcedureReturbale('listUserAccess');
 		return $view->render();
 	}
 
@@ -34,7 +35,7 @@ class UserController
 		$view = new View('site/user/register.phtml', true);
 		$view->controller = 'user';
 		$view->viewName = 'register';
-		$view->accessLevels = $this->model->findAll('access_level');
+		$view->accessLevels = (new AccessLevelModel())->findAll();
 		return $view->render();
 	}
 
@@ -43,7 +44,7 @@ class UserController
 		$view = new View('site/user/edit.phtml', true);
 		$view->controller = 'user';
 		$view->user = $this->model->find($id);
-		$view->accessLevels = $this->model->findAll('access_level');
+		$view->accessLevels = (new AccessLevelModel())->findAll();
 		return $view->render();
 	}
 

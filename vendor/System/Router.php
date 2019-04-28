@@ -23,7 +23,7 @@ class Router
 	{
 		extract(self::getUrl());
 		if (in_array($controller, Constants::RULE_ROUTE_SESSION) && is_null(Session::get('USER'))) {
-			print (new \Crud\View\View('/404.phtml'))->render();
+			print (new \Crud\View\View('/404.phtml', true))->render();
 			exit();
 		}
 	}
@@ -34,7 +34,7 @@ class Router
 		self::restrictRoute();
 		if(!class_exists($controller = "Crud\Controller\\" . ucfirst($controller) . 'Controller'))
 		{
-			print (new \Crud\View\View('/404.phtml'))->render();
+			print (new \Crud\View\View('/404.phtml', true))->render();
 			exit();
 		}
 

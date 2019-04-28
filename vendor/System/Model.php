@@ -5,34 +5,59 @@ use System\Connection;
 
 class Model extends Connection
 {
-	public $conexao;
+	public $connection;
 	protected $table;
 
 	public function __construct()
 	{
-		$this->conexao = Connection::conexao();
+		$this->connection = Connection::getInstance();
 	}
 
-	public function findAll($table = null)
+	private function bind($sql, $data)
 	{
-		$table = $table ?? $this->table;
-		$stmt = $this->conexao->query("SELECT * FROM {$table}");
-		return $stmt->fetchAll();
+		$bind = $this->connection->prepare($sql);
+		foreach ($data as $k => $v) {
+			gettype($v) == 'int' ? $bind->bindValue(':' . $k, $v, \PDO::PARAM_INT)
+				: $bind->bindValue(':' . $k, $v, \PDO::PARAM_STR);
+		}
+		return $bind;
 	}
 
-	public function find($id)
+	public function where(array $conditions, $operator = ' AND ', $fields = '*') : array
 	{
-		$stmt = $this->conexao->prepare("SELECT * FROM {$this->table} WHERE id = :id");
-		$stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetch();
+		$sql = 'SELECT ' . $fields . ' FROM ' . $this->table . ' WHERE ';
+		$binds = array_keys($conditions);
+		$where  = null;
+		foreach($binds as $v) {
+			if(is_null($where)) {
+				$where .= $v . ' = :' . $v;
+			} else {
+				$where .= $operator . $v . ' = :' . $v;
+			}
+		}
+		$sql .= $where;
+		$get = $this->bind($sql, $conditions);
+		$get->execute();
+		return $get->fetchAll();
+	}
+
+	public function findAll($fields = '*')
+	{
+		$sql = 'SELECT ' . $fields . ' FROM ' . $this->table;
+		$get = $this->connection->query($sql);
+		return $get->fetchAll();
+	}
+
+	public function find(int $id, $fields = '*')
+	{
+		return current($this->where(['id' => $id], '', $fields));
 	}
 
 	public function insert()
 	{
 		try{
 			$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$stmt = $this->conexao->prepare("INSERT INTO {$this->table} (email, password, access_level_id) VALUES (:email, :password, :access_level_id)");
+			$stmt = $this->connection->prepare("INSERT INTO {$this->table} (email, password, access_level_id) VALUES (:email, :password, :access_level_id)");
 			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
 			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
 			$stmt->bindValue(':access_level_id', $data['access_level'] ?? 2, \PDO::PARAM_INT);
@@ -47,10 +72,10 @@ class Model extends Connection
 	{
 		$id = $id ?? filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 		try{
-			$stmt = $this->conexao->prepare("DELETE FROM {$this->table} WHERE id = :id");
-			$stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-			$stmt->execute();
-			if ($stmt->rowCount() > 0) {
+			$sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+			$delete = $this->bind($sql, ['id' => $id]);
+			$delete->execute();
+			if ($delete->rowCount() > 0) {
 				return ['message' => 'Registro excluído com sucesso!'];
 			} else {
 				throw new \PDOException("Registro não encontrado", 1);
@@ -63,7 +88,7 @@ class Model extends Connection
 	public function update(array $data): array
 	{
 		try{
-			$stmt = $this->conexao->prepare("UPDATE {$this->table} SET email = :email, password = :password, access_level_id = :access_level_id WHERE id = :id");
+			$stmt = $this->connection->prepare("UPDATE {$this->table} SET email = :email, password = :password, access_level_id = :access_level_id WHERE id = :id");
 			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
 			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
 			$stmt->bindValue(':id', $data['id'], \PDO::PARAM_INT);
@@ -81,15 +106,15 @@ class Model extends Connection
 
 	public function findBy(array $dados)
 	{
-		$stmt = $this->conexao->prepare("SELECT * FROM {$this->table} WHERE email = :email");
+		$stmt = $this->connection->prepare("SELECT * FROM {$this->table} WHERE email = :email");
 		$stmt->bindParam(':email', $dados['email'], \PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetch();
 	}
 
-	public function executeProcedure(string $procedureName)
+	public function executeProcedureReturbale(string $procedureName)
 	{
-		$stmt = $this->conexao->query("CALL {$procedureName}");
+		$stmt = $this->connection->query("CALL {$procedureName}");
 		return $stmt->fetchAll();
 	}
 }
