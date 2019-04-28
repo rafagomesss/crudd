@@ -74,3 +74,43 @@ CREATE PROCEDURE listUserAccess()
 	END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE userRegister(
+	IN name VARCHAR(255),
+	IN cpf VARCHAR(15),
+	IN gender CHAR(1),
+	IN birthdate DATETIME,
+	IN cellphone VARCHAR(18),
+	IN address VARCHAR(255),
+	IN address_num VARCHAR(5),
+	IN address_compl VARCHAR(80))
+	BEGIN
+		INSERT INTO user_access (email, password, access_level_id) VALUES (email, password, access_level_id);
+		SET @user_access_id_inserted = 0;
+		SET @user_id_inserted = 0;
+		SELECT LAST_INSERT_ID() INTO @user_access_id_inserted;
+		INSERT INTO user(
+			name,
+			cpf,
+			gender,
+			birthdate,
+			cellphone,
+			address,
+			address_num,
+			address_compl,
+			user_access_id
+		) VALUES (
+			name,
+			cpf,
+			gender,
+			birthdate,
+			cellphone,
+			address,
+			address_num,
+			address_compl,
+			@user_access_id_inserted
+		)
+		SELECT LAST_INSERT_ID() INTO @user_id_inserted;
+		SELECT @user_access_id_inserted, @user_id_inserted
+	END $$
+DELIMITER ;
