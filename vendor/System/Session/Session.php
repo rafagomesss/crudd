@@ -1,11 +1,13 @@
 <?php
-namespace System;
+namespace System\Session;
 
 class Session
 {
     public static function start()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public static function destroy()
@@ -26,5 +28,10 @@ class Session
     public static function delete($key)
     {
         unset($_SESSION[$key]);
+    }
+
+    public static function has($key)
+    {
+        return isset($_SESSION[$key]);
     }
 }

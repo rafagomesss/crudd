@@ -3,9 +3,9 @@ require dirname($_SERVER['DOCUMENT_ROOT']) . DIRECTORY_SEPARATOR . "bootstrap.ph
 
 use System\{
     Router,
-    Session,
     Constants
 };
+use System\Session\Session;
 
 Session::start();
 Router::validateRoute();

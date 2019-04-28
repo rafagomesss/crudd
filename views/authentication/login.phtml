@@ -5,7 +5,7 @@
                 <h5 class="card-title">Login</h5>
             </div>
             <div class="card-body">
-                <form action="/auth/validateLogin" method="POST">
+                <form id="formAuthLogin" name="formAuthLogin" action="/auth/validateLogin" method="POST">
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="inputEmail4">Email</label>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <a href="/auth/createAccount" title="">Cadastre-se</a>
-                    <button type="submit" class="btn btn-primary float-right">Login</button>
+                    <button id="btnFormAuthLogin" type="button" class="btn btn-primary float-right">Login</button>
                 </form>
             </div>
         </div>

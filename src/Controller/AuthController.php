@@ -5,7 +5,7 @@ use Crud\{
     Model\ModelUser,
     View\View
 };
-use System\Session;
+use System\Session\Session;
 
 class AuthController
 {
@@ -19,30 +19,54 @@ class AuthController
     private function validatePassword(\stdClass $data): bool
     {
         if (password_verify(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), $data->password)) {
-            Session::set('USER', $data->email);
-            Session::set('ACCESS_LEVEL', $data->access_level_id);
-            header('Location: /user/list');
-        } else {
-            Session::destroy();
-            header('Location: /auth');
+            return true;
         }
-    }
-
-    public function index()
-    {
-        return (new View('authentication/login.phtml', true))->render();
+        return false;
     }
 
     public function validateLogin()
     {
-        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $retorno = $this->model->findBy($data);
-        if ($retorno) {
-            $this->validatePassword($retorno);
-        } else {
-            header('Location: /auth');
+        $param = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = $this->model->findBy($param);
+
+        $response = [
+            'erro' => true,
+            'message' => 'Usuário não existe!',
+            'redirect' => '/auth',
+            'class' => 'warning'
+        ];
+        if (is_object($data)) {
+            if ($this->validatePassword($data)) {
+                Session::set('USER', $data->email);
+                Session::set('ACCESS_LEVEL', $data->access_level_id);
+                Session::set('success', 'Autenticação realizada com sucesso!');
+                $response = [
+                    'message' => 'Autenticação realizada com sucesso!',
+                    'redirect' => '/',
+                    'class' => 'success'
+                ];
+            } else {
+                Session::destroy();
+                $response = [
+                    'erro' => true,
+                    'message' => 'Dados inválidos!',
+                    'redirect' => '/auth',
+                    'class' => 'warning'
+                ];
+            }
         }
+
+        echo json_encode($response);
     }
+
+    public function index()
+    {
+        $view = new View('authentication/login.phtml', true);
+        $view->controller = 'auth';
+        $view->viewName = 'login';
+        return $view->render();
+    }
+
 
     public function logout()
     {
@@ -54,6 +78,7 @@ class AuthController
     {
         $view = new View('authentication/register.phtml', true);
         $view->controller = 'auth';
+        $view->viewName = 'register';
         return $view->render();
     }
 

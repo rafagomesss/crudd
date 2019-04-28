@@ -1,6 +1,8 @@
 <?php
 namespace System;
 
+use System\Session\Session;
+
 class Router
 {
 	private static function getUrl()
