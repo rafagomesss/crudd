@@ -3,7 +3,7 @@ namespace Crud\Model;
 
 use System\Model;
 
-class AccessLevelModel extends Model
+class ModelAccessLevel extends Model
 {
     public function __construct()
     {

@@ -80,7 +80,7 @@ class AuthController
             $data['password'] = PasswordManager::passwordHash($data['password']);
             unset($data['confirmPassword']);
             $insert = current($this->model->executeProcedureReturbale('userRegister', $data));
-            if ((int)$insert->user_access_id > 0 && (int)$insert->user_access_id > 0) {
+            if ((int)$insert->user_access_id > 0 && (int)$insert->user_id > 0) {
                 $retorno = ['message' => 'Registro salvo com sucesso!'];
             }
         } catch(Exception $e) {

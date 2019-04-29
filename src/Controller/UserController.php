@@ -4,7 +4,7 @@ namespace Crud\Controller;
 use Crud\Controller\UserController;
 use Crud\View\View;
 use Crud\Model\ModelUser;
-use Crud\Model\AccessLevelModel;
+use Crud\Model\ModelAccessLevel;
 
 class UserController
 {
@@ -33,7 +33,7 @@ class UserController
         $view = new View('site/user/register.phtml', true);
         $view->controller = 'user';
         $view->viewName = 'register';
-        $view->accessLevels = (new AccessLevelModel())->findAll();
+        $view->accessLevels = (new ModelAccessLevel())->findAll();
         return $view->render();
     }
 
@@ -42,7 +42,7 @@ class UserController
         $view = new View('site/user/edit.phtml', true);
         $view->controller = 'user';
         $view->user = $this->model->find($id);
-        $view->accessLevels = (new AccessLevelModel())->findAll();
+        $view->accessLevels = (new ModelAccessLevel())->findAll();
         return $view->render();
     }
 

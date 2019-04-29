@@ -117,7 +117,7 @@ class Model extends Connection
 		$sql = "CALL {$procedureName}";
 		if (is_array($data) && count($data) > 0) {
 			$sql .= '(';
-			foreach ($data as $key => $value) {
+			foreach ($data as $value) {
 				$sql .= "'$value'" . ',';
 			}
 			$sql = substr($sql, 0, -1);
