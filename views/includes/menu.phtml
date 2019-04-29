@@ -21,15 +21,20 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/user/list">Listar</a>
-                    <a class="dropdown-item" href="/user/register">Cadastrar</a>
+                    <?php if ((int)\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL['ADMIN']) : ?>
+                        <a class="dropdown-item" href="/user/register">Cadastrar</a>
+                    <?php endif; ?>
                 </div>
             </li>
             <?php endif; ?>
         </ul>
         <?php if (!isset($_SESSION['USER'])) : ?>
-        <a class="btn btn-sm btn-outline-dark" href="/auth">
-            <i class="far fa-user-circle fa-2x"></i>
-        </a>
+            <a class="btn btn-sm btn-outline-dark" href="/auth">
+                <span>
+                    <i class="far fa-user-circle fa-2x"></i>
+                    Entrar
+                </span>
+            </a>
         <?php else : ?>
             <a class="btn btn-sm btn-outline-dark" href="/auth/logout">
                 <i class="fas fa-sign-out-alt"></i>

@@ -83,9 +83,12 @@ CREATE PROCEDURE userRegister(
 	IN cellphone VARCHAR(18),
 	IN address VARCHAR(255),
 	IN address_num VARCHAR(5),
-	IN address_compl VARCHAR(80))
+	IN address_compl VARCHAR(80),
+	IN email VARCHAR(80),
+	IN password VARCHAR(72))
 	BEGIN
-		INSERT INTO user_access (email, password, access_level_id) VALUES (email, password, access_level_id);
+		SET @access_level_id = 2;
+		INSERT INTO user_access (email, password, access_level_id) VALUES (email, password, @access_level_id);
 		SET @user_access_id_inserted = 0;
 		SET @user_id_inserted = 0;
 		SELECT LAST_INSERT_ID() INTO @user_access_id_inserted;
@@ -109,8 +112,8 @@ CREATE PROCEDURE userRegister(
 			address_num,
 			address_compl,
 			@user_access_id_inserted
-		)
+		);
 		SELECT LAST_INSERT_ID() INTO @user_id_inserted;
-		SELECT @user_access_id_inserted, @user_id_inserted
+		SELECT @user_access_id_inserted AS user_access_id, @user_id_inserted AS user_id;
 	END $$
 DELIMITER ;

@@ -9,7 +9,10 @@ $(document).ready(function(){
             data: data,
         }).done(function(data) {
             console.log(data)
-            let message = data.message;
+            if (parseInt(data.user_access_id) > 0 && parseInt(data.user_id) > 0) {
+
+            }
+            let message = 'Registro salvo com sucesso!';
             let classes = 'success';
             let modal = '#modal-alert';
             let redirect = '/auth';

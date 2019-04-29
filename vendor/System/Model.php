@@ -112,9 +112,18 @@ class Model extends Connection
 		return $stmt->fetch();
 	}
 
-	public function executeProcedureReturbale(string $procedureName)
+	public function executeProcedureReturbale(string $procedureName, array $data = [])
 	{
-		$stmt = $this->connection->query("CALL {$procedureName}");
+		$sql = "CALL {$procedureName}";
+		if (is_array($data) && count($data) > 0) {
+			$sql .= '(';
+			foreach ($data as $key => $value) {
+				$sql .= "'$value'" . ',';
+			}
+			$sql = substr($sql, 0, -1);
+			$sql .= ')';
+		}
+		$stmt = $this->connection->query($sql);
 		return $stmt->fetchAll();
 	}
 }
