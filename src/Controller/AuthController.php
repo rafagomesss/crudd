@@ -3,6 +3,7 @@ namespace Crud\Controller;
 
 use Crud\Model\ModelUser;
 use Crud\View\View;
+use System\Constants;
 use System\PasswordManager;
 use System\Session\Session;
 
@@ -29,7 +30,7 @@ class AuthController
         if (is_object($data)) {
             if (PasswordManager::validatePassword($param['password'], $data->password)) {
                 Session::set('USER', $data->email);
-                Session::set('ACCESS_LEVEL', $data->access_level_id);
+                Session::set('ACCESS_LEVEL', Constants::ACCESS_LEVEL[$data->access_level_id]);
                 Session::set('success', 'Autenticação realizada com sucesso!');
                 $response = [
                     'message' => 'Autenticação realizada com sucesso!',

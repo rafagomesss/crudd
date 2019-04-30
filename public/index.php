@@ -6,4 +6,4 @@ use System\Constants;
 use System\Session\Session;
 
 Session::start();
-Router::validateRoute();
+(new Router)->validateRoute();

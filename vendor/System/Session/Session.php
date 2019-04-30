@@ -34,4 +34,9 @@ class Session
     {
         return isset($_SESSION[$key]);
     }
+
+    public static function validateSessionUser()
+    {
+        return Session::has('USER') && Session::has('ACCESS_LEVEL');
+    }
 }
