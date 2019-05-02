@@ -6,7 +6,7 @@
 				<th>#</th>
 				<th>E-mail</th>
 				<th>Acesso</th>
-				<?php if ((int)\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL['ADMIN']) : ?>
+				<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
 					<th>Ações</th>
 				<?php endif; ?>
 			</tr>
@@ -18,7 +18,7 @@
 						<td><?= $user->id;?></td>
 						<td><?= $user->email;?></td>
 						<td><?= mb_convert_case($user->level, MB_CASE_TITLE, "UTF-8");?></td>
-						<?php if ((int)\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL['ADMIN']) : ?>
+						<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
 							<td class="text-center">
 								<a href="/user/edit/<?= $user->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
 									<i class="far fa-edit"></i>

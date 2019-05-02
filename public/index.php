@@ -5,4 +5,4 @@ use System\Router;
 use System\Session\Session;
 
 Session::start();
-Router::validateRoute();
+(new Router)->run();

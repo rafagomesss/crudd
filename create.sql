@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS user
  */
 
 /**
- * @table user_access
+ * @Procedure listUserAccess
  * Lista todos os usuários de acesso ao sistema
  */
 DELIMITER $$
@@ -75,6 +75,10 @@ CREATE PROCEDURE listUserAccess()
 	END $$
 DELIMITER ;
 
+/**
+ * @Procedure userRegister
+ * Registra usuários no sistema
+ */
 DELIMITER $$
 CREATE PROCEDURE userRegister(
 	IN name VARCHAR(255),
@@ -116,5 +120,26 @@ CREATE PROCEDURE userRegister(
 		);
 		SELECT LAST_INSERT_ID() INTO @user_id_inserted;
 		SELECT @user_access_id_inserted AS user_access_id, @user_id_inserted AS user_id;
+	END $$
+DELIMITER ;
+
+/**
+ * @Procedure getUserAccess
+ * Recupera usuário que acabou de logar no sistema
+ * Autenticação
+ */
+DELIMITER $$
+CREATE PROCEDURE getUserAccess(IN email VARCHAR(80))
+	BEGIN
+		SELECT
+		    u.name,
+		    ua.email,
+		    al.description AS level
+		FROM user_access AS ua
+		LEFT JOIN user AS u
+			ON u.user_access_id = ua.id
+		INNER JOIN access_level AS al
+			ON al.id = ua.access_level_id
+		WHERE ua.email = email;
 	END $$
 DELIMITER ;

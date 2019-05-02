@@ -15,6 +15,15 @@ class AuthController
         $this->model = new ModelUser();
     }
 
+    private function authenticateUser($email)
+    {
+        $user = current($this->model->executeProcedureReturbale('getUserAccess', [$email]));
+        Session::set('USER', $user->email);
+        Session::set('USER_NAME', $user->name);
+        Session::set('ACCESS_LEVEL', $user->level);
+        Session::set('success', 'Autenticação realizada com sucesso!');
+    }
+
     public function validateLogin()
     {
         $param = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -28,9 +37,7 @@ class AuthController
         ];
         if (is_object($data)) {
             if (PasswordManager::validatePassword($param['password'], $data->password)) {
-                Session::set('USER', $data->email);
-                Session::set('ACCESS_LEVEL', $data->access_level_id);
-                Session::set('success', 'Autenticação realizada com sucesso!');
+                $this->authenticateUser($data->email);
                 $response = [
                     'message' => 'Autenticação realizada com sucesso!',
                     'redirect' => '/',
