@@ -12,7 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (is_array($this->data['users']) && !empty($this->data['users'])): ?>
+			<?php if (is_array($this->users) && !empty($this->users)): ?>
 				<?php foreach ($this->users as $key => $user): ?>
 					<tr>
 						<td><?= $user->id;?></td>

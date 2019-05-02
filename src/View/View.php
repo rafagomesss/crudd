@@ -17,12 +17,12 @@ class View
 
     public function __set($index, $value)
     {
-        $this->data[$index] = $value;
+        $this->{$index} = $value;
     }
 
     public function __get($index)
     {
-        return $this->data[$index];
+        return $this->{$index};
     }
 
     public function render()

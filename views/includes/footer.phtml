@@ -8,12 +8,12 @@
 	<script src="<?= JS_PATH;?>/jquery/jquery.mask.min.js" type="text/javascript"></script>
 	<script src="<?= JS_PATH;?>/global/functions.js" type="text/javascript"></script>
 
-	<?php if (isset($this->data['controller']) && isset($this->data['viewName'])) : ?>
+	<?php if (isset($this->controller) && isset($this->viewName)) : ?>
 
 		<script src="<?= JS_PATH;?>/<?= $this->controller;?>/<?= $this->viewName;?>.js" type="text/javascript"></script>
 		<script src="<?= JS_PATH;?>/<?= $this->controller;?>/<?= $this->controller;?>.js" type="text/javascript"></script>
 
-	<?php elseif (isset($this->data['controller'])) : ?>
+	<?php elseif (isset($this->controller)) : ?>
 
 		<script src="<?= JS_PATH;?>/<?= $this->controller;?>/<?= $this->controller;?>.js" type="text/javascript"></script>
 

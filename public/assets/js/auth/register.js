@@ -5,6 +5,16 @@ $(document).ready(function(){
     $("#formAuthRegister").validate({
         errorClass: "is-invalid small text-danger",
         validClass: "is-valid",
+        groups: {
+            username: "gender"
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") == "gender") {
+                error.insertAfter(".genderF");
+            } else {
+                error.insertAfter(element);
+            }
+        },
         rules: {
             name: {
                 required: true,
@@ -37,7 +47,8 @@ $(document).ready(function(){
             address_num: {
                 required: true,
                 maxlength: 4
-            }
+            },
+            gender: "required"
         },
         messages: {
             name: {
@@ -72,6 +83,9 @@ $(document).ready(function(){
             address_num: {
                 required: "O campo N.º do endereço é um campo obrigatório",
                 maxlength: "O campo permite inserir apenas 4 dígitos"
+            },
+            gender: {
+                required:"O campo gênero é um campo obrigatório"
             }
         }
     });

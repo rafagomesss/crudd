@@ -5,7 +5,7 @@
 		<label for="access_level">Nível de Acesso</label>
 		<select class="form-control" name="access_level">
 			<option value="">Selecione...</option>
-			<?php if (is_array($this->data['accessLevels']) && !empty($this->data['accessLevels'])) : ?>
+			<?php if (is_array($this->accessLevels) && !empty($this->accessLevels)) : ?>
 				<?php foreach ($this->accessLevels as $access) : ?>
 					<option value="<?= $access->id;?>" <?= $access->id === $this->user->access_level_id ? 'selected' : '';?>><?= $access->description;?></option>
 				<?php endforeach; ?>
