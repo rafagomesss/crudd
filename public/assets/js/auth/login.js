@@ -22,7 +22,7 @@ $(document).ready(function() {
             password : {
                 required : 'A senha é uma informação obrigatória',
                 minlength: 'A senha deve conter no mínimo 8 caracteres'
-            }
+            } 
         }
     });
     $('#btnFormAuthLogin').on('click', function(){
