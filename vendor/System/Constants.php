@@ -3,24 +3,22 @@ namespace System;
 
 class Constants
 {
-    const RESTRICT_USER = [
-        'ADMIN' => [
-            'controller' => [],
-            'methods' => []
-        ],
+
+    const RESTRICT_USER_ROUTE = [
         'USER' => [
             'controller' => [
-                'user'
+                'user' => [
+                    'action' => [
+                        'edit',
+                        'register',
+                    ],
+                ],
             ],
-            'methods' => [
-                'register',
-                'edit'
-            ]
-        ]
+        ],
     ];
 
     const RULE_ROUTE_SESSION = [
-        'user'
+        'user',
     ];
 
     const ACCESS_LEVEL = [

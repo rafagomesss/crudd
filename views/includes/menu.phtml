@@ -5,7 +5,6 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -14,7 +13,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
             </li>
-            <?php if (isset($_SESSION['USER'])) : ?>
+            <?php if (\System\Session\Session::has('USER')) : ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Usuário
@@ -28,7 +27,7 @@
             </li>
             <?php endif; ?>
         </ul>
-        <?php if (!isset($_SESSION['USER'])) : ?>
+        <?php if (!\System\Session\Session::has('USER')) : ?>
             <a class="btn btn-sm btn-outline-dark" href="/auth">
                 <span>
                     <i class="far fa-user-circle fa-2x"></i>
@@ -36,6 +35,9 @@
                 </span>
             </a>
         <?php else : ?>
+            <span class="navbar-text mr-2">
+                <?= \System\Session\Session::get('USER_NAME') ?? \System\Session\Session::get('USER');?>
+            </span>
             <a class="btn btn-sm btn-outline-dark" href="/auth/logout">
                 <i class="fas fa-sign-out-alt"></i>
                 Sair

@@ -16,6 +16,15 @@ class AuthController
         $this->model = new ModelUser();
     }
 
+    private function authenticateUser($email)
+    {
+        $user = current($this->model->executeProcedureReturbale('getUserAccess', [$email]));
+        Session::set('USER', $user->email);
+        Session::set('USER_NAME', $user->name);
+        Session::set('ACCESS_LEVEL', $user->level);
+        Session::set('success', 'Autenticação realizada com sucesso!');
+    }
+
     public function validateLogin()
     {
         $param = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -25,17 +34,15 @@ class AuthController
             'erro' => true,
             'message' => 'Usuário não existe!',
             'redirect' => '/auth',
-            'class' => 'warning'
+            'class' => 'warning',
         ];
         if (is_object($data)) {
             if (PasswordManager::validatePassword($param['password'], $data->password)) {
-                Session::set('USER', $data->email);
-                Session::set('ACCESS_LEVEL', Constants::ACCESS_LEVEL[$data->access_level_id]);
-                Session::set('success', 'Autenticação realizada com sucesso!');
+                $this->authenticateUser($data->email);
                 $response = [
                     'message' => 'Autenticação realizada com sucesso!',
                     'redirect' => '/',
-                    'class' => 'success'
+                    'class' => 'success',
                 ];
             } else {
                 Session::destroy();
@@ -43,7 +50,7 @@ class AuthController
                     'erro' => true,
                     'message' => 'Senha inválida!',
                     'redirect' => '/auth',
-                    'class' => 'warning'
+                    'class' => 'warning',
                 ];
             }
         }
@@ -58,7 +65,6 @@ class AuthController
         $view->viewName = 'login';
         return $view->render();
     }
-
 
     public function logout()
     {
@@ -81,11 +87,11 @@ class AuthController
             $data['password'] = PasswordManager::passwordHash($data['password']);
             unset($data['confirmPassword']);
             $insert = current($this->model->executeProcedureReturbale('userRegister', $data));
-            if ((int)$insert->user_access_id > 0 && (int)$insert->user_id > 0) {
+            if ((int) $insert->user_access_id > 0 && (int) $insert->user_id > 0) {
                 $retorno = ['message' => 'Registro salvo com sucesso!'];
             }
-        } catch(Exception $e) {
-            $retorno =  ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
+        } catch (Exception $e) {
+            $retorno = ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
         }
         echo json_encode($retorno);
     }

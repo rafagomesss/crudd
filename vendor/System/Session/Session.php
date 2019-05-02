@@ -17,7 +17,7 @@ class Session
 
     public static function get($key)
     {
-    	return $_SESSION[$key] ?? null;
+        return $_SESSION[$key] ?? null;
     }
 
     public static function set($key, $value)
@@ -37,6 +37,6 @@ class Session
 
     public static function validateSessionUser()
     {
-        return Session::has('USER') && Session::has('ACCESS_LEVEL');
+        return self::has('USER') && self::has('ACCESS_LEVEL');
     }
 }

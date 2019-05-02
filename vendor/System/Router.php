@@ -5,67 +5,59 @@ use System\Session\Session;
 
 class Router
 {
-	private $controller;
-	private $action;
-	private $param = [];
+    private $controller;
+    private $action;
+    private $param = [];
 
-	public function __construct()
-	{
-		$this->getUrl();
-	}
+    public function __construct()
+    {
+        $uri = parse_url(substr($_SERVER['REQUEST_URI'], 1), PHP_URL_PATH);
+        $uri = explode('/', $uri);
 
-	private function getUrl()
-	{
-		$uri = parse_url(substr($_SERVER['REQUEST_URI'], 1), PHP_URL_PATH);
-		$uri = explode('/', $uri);
+        $this->controller = isset($uri[0]) && $uri[0] ? $uri[0] : 'home';
+        $this->action = isset($uri[1]) && $uri[1] ? $uri[1] : 'index';
+        $this->param = isset($uri[2]) && $uri[2] ? $uri[2] : [];
+    }
 
-		$this->controller = isset($uri[0]) && $uri[0] ? $uri[0] : 'home';
-		$this->action = isset($uri[1]) && $uri[1] ? $uri[1] : 'index';
-		$this->param = isset($uri[2]) && $uri[2] ? $uri[2] : [];
-	}
+    private function notFound()
+    {
+        print(new \Crud\View\View('/404.phtml', true))->render();
+        exit();
+    }
 
-	private function notFound()
-	{
-		print (new \Crud\View\View('/404.phtml', true))->render();
-		exit();
-	}
+    private function controlRestrictedRoutes()
+    {
+        if (in_array($this->controller, array_keys(Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')]['controller'])) && in_array($this->action, Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')]['controller'][$this->controller]['action'])) {
+            $this->notFound();
+        }
+    }
 
-	private function restrictRouteSession()
-	{
-		if (in_array($this->controller, Constants::RULE_ROUTE_SESSION) && !Session::has('USER')) {
-			return false;
-		}
-		return true;
-	}
+    private function restrictRoute()
+    {
+        if (in_array($this->controller, Constants::RULE_ROUTE_SESSION) && !Session::validateSessionUser()) {
+            $this->notFound();
+        }
+    }
 
-	private function restrictRouteUser()
-	{
-		if (Session::validateSessionUser()) {
-			if (in_array($this->controller, Constants::RESTRICT_USER[Session::get('ACCESS_LEVEL')]['controller']) && in_array($this->action, Constants::RESTRICT_USER[Session::get('ACCESS_LEVEL')]['methods'])) {
-				return false;
-			}
-		}
-		return true;
-	}
+    private function validateRoute()
+    {
+        if (!class_exists($this->controller = "Crud\Controller\\" . ucfirst($this->controller) . 'Controller')) {
+            $this->notFound();
+        }
 
-	public function validateRoute()
-	{
-		if (!$this->restrictRouteSession() || !$this->restrictRouteUser()) {
-			$this->notFound();
-		}
+        if (!method_exists($this->controller, $this->action)) {
+            $this->action = 'index';
+            $this->param = $this->action;
+        }
 
-		if(!class_exists($this->controller = "Crud\Controller\\" . ucfirst($this->controller) . 'Controller'))
-		{
-			print (new \Crud\View\View('/404.phtml', true))->render();
-			exit();
-		}
+        $response = call_user_func_array([new $this->controller, $this->action], [$this->param]);
+        print $response;
+    }
 
-		if(!method_exists($this->controller, $this->action)) {
-			$this->action = 'index';
-			$param  = $this->action;
-		}
-
-		$response = call_user_func_array([new $this->controller, $this->action], [$this->param]);
-		print $response;
-	}
+    public function run()
+    {
+        $this->restrictRoute();
+        $this->controlRestrictedRoutes();
+        $this->validateRoute();
+    }
 }
