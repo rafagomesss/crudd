@@ -3,6 +3,7 @@ $(document).ready(function() {
 		errorClass: "is-invalid small text-danger",
 		validClass: "is-valid",
 		rules: {
+			access_level : "required",
 			email: {
 				required: true,
 				email: true,
@@ -14,6 +15,9 @@ $(document).ready(function() {
 			}
 		},
 		messages: {
+			access_level : {
+				required: 'Campo nível de acesso é obrigatórió!',
+			},
 			email: {
 				required: 'Precisamos que informe um e-mail para efetuar o registro',
 				email: 'E-mail informado possui formato inválido. Exemplo de um formato válido: nome@dominio.com',

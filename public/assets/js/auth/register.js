@@ -1,9 +1,20 @@
 $(document).ready(function(){
-     $("#formAuthRegister").validate({
+    $('#cpf').mask('000.000.000-00');
+    $('#cellphone').mask('(00) 0 0000-0000');
+    $('#birthdate').mask('00/00/0000', {placeholder: "__/__/____"});
+    $("#formAuthRegister").validate({
         errorClass: "is-invalid small text-danger",
         validClass: "is-valid",
         rules: {
-            name: "required",
+            name: {
+                required: true,
+                minlength: 3
+            },
+            cpf: {
+                required: true,
+                minlength: 13,
+                maxlength: 14
+            },
             email: {
                 required: true,
                 email: true,
@@ -12,17 +23,55 @@ $(document).ready(function(){
             password: {
                 required: true,
                 minlength: 8
+            },
+            confirmPassword: {
+                required: true,
+                minlength: 8,
+                equalTo: '#password'
+            },
+            cellphone: {
+                required: true,
+                minlength: 15
+            },
+            address: "required",
+            address_num: {
+                required: true,
+                maxlength: 4
             }
         },
         messages: {
+            name: {
+                required: "O campo nome é obrigatório!",
+                minlength: "O nome deve conter no mínimo 3 letras"
+            },
+            cpf: {
+                required: "O campo cpf é obrigatório!",
+                minlength: "O cpf deve conter no mínimo 11 dígitos"
+            },
             email: {
                 required: 'Precisamos que informe um e-mail para efetuar o acesso',
                 email: 'E-mail informado possui formato inválido. Exemplo de um formato válido: nome@dominio.com',
                 minlength: 'E-mail deve conter no mínimo 7 caracteres'
             },
             password : {
-                required : 'A senha é uma informação obrigatória',
+                required : 'O campo senha é campo obrigatório',
                 minlength: 'A senha deve conter no mínimo 8 caracteres'
+            },
+            confirmPassword : {
+                required : 'O campo confirmar senha é campo obrigatório',
+                minlength: 'A senha deve conter no mínimo 8 caracteres',
+                equalTo: 'A senha não confere'
+            },
+            cellphone: {
+                required: "O campo celular é um campo obrigatório",
+                minlength: "Número inválido!"
+            },
+            address: {
+                required: "O campo endereço é um campo obrigatório",
+            },
+            address_num: {
+                required: "O campo N.º do endereço é um campo obrigatório",
+                maxlength: "O campo permite inserir apenas 4 dígitos"
             }
         }
     });
@@ -30,7 +79,7 @@ $(document).ready(function(){
         const form = $('#formAuthRegister');
         const data = form.serializeArray();
         let validator = form.validate();
-        if(validator) {
+        if(validator.form()) {
             $.ajax({
                 url: '/auth/register',
                 type: 'POST',
