@@ -1,24 +1,33 @@
-<h2>Cadastrar Usuário</h2>
-<form id="formUserAccess" name="formUserAccess" method="POST" action="">
-	<div class="form-group">
-		<label for="access_level">Nível de Acesso</label>
-		<select class="form-control" name="access_level">
-			<option value="">Selecione...</option>
-			<?php if (is_array($this->accessLevels) && !empty($this->accessLevels)) : ?>
-				<?php foreach ($this->accessLevels as $access) : ?>
-					<option value="<?= $access->id;?>"><?= $access->description;?></option>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</select>
+<div class="row justify-content-center">
+	<div class="col-sm-10 col-md-10 col-lg-6 col-xl-6">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">CADASTRAR USUÁRIO</h6>
+			</div>
+			<div class="card-body">
+				<form id="formUserAccess" name="formUserAccess" method="POST" action="">
+					<div class="form-group">
+						<label for="access_level">Nível de Acesso</label>
+						<select class="form-control" name="access_level">
+							<option value="">Selecione...</option>
+							<?php if (is_array($this->accessLevels) && !empty($this->accessLevels)) : ?>
+								<?php foreach ($this->accessLevels as $access) : ?>
+									<option value="<?= $access->id;?>"><?= $access->description;?></option>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="email">E-mail</label>
+						<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@exemplo.com.br" data-validation="required">
+					</div>
+					<div class="form-group">
+						<label for="password">Senha</label>
+						<input type="password" class="form-control" id="password" name="password" placeholder="**********" required data-validation="required" maxlength="8">
+					</div>
+					<button id="btnFormUserAccess" type="button" class="btn btn-primary float-right">Salvar</button>
+				</form>
+			</div>
+		</div>
 	</div>
-	<div class="form-group">
-		<label for="email">E-mail</label>
-		<input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@exemplo.com.br" data-validation="required">
-	</div>
-	<div class="form-group">
-		<label for="password">Senha</label>
-		<input type="password" class="form-control" id="password" name="password" placeholder="**********" required data-validation="required" maxlength="8">
-	</div>
-	<button id="btnFormUserAccess" type="button" class="btn btn-primary float-right">Salvar</button>
-</form>
-
+</div>

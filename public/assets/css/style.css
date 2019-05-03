@@ -3,6 +3,11 @@
           box-sizing: border-box;
 }
 
+.navbar-nav.bg-gradient-primary{
+  background-color: #14367C !important;
+  background-image: none;
+}
+
 body {
   padding: 0;
   margin: 0;
