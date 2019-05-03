@@ -1,43 +1,45 @@
-<div class="col">
-	<h2>Lista de Usuários</h2>
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>E-mail</th>
-				<th>Acesso</th>
-				<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
-					<th>Ações</th>
-				<?php endif; ?>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if (is_array($this->users) && !empty($this->users)): ?>
-				<?php foreach ($this->users as $key => $user): ?>
-					<tr>
-						<td><?= $user->id;?></td>
-						<td><?= $user->email;?></td>
-						<td><?= mb_convert_case($user->level, MB_CASE_TITLE, "UTF-8");?></td>
-						<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
-							<td class="text-center">
-								<a href="/user/edit/<?= $user->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
-									<i class="far fa-edit"></i>
-								</a>
-								<a title="Excluir" class="px-2 text-danger pointer btnUserDelete" data-user-delete="<?= $user->id;?>">
-									<i class="far fa-minus-square"></i>
-								</a>
-							</td>
-						<?php endif; ?>
-					</tr>
-				<?php endforeach; ?>
-			<?php else: ?>
+<div class="row justify-content-center">
+	<div class="col-8 col-sm-8 col-md-10 col-lg-10">
+		<h5 class="font-weight-bold text-primary">LISTA DE USUÁRIOS</h5>
+		<table class="table table-bordered table-striped">
+			<thead>
 				<tr>
-					<td class="text-center" colspan="5">
-						<span class="font-weight-light text-danger font-weight-bold">Nenhum usuário cadastrado!</span>
-					</td>
+					<th>#</th>
+					<th>E-mail</th>
+					<th>Acesso</th>
+					<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
+						<th>Ações</th>
+					<?php endif; ?>
 				</tr>
-			<?php endif; ?>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<?php if (is_array($this->users) && !empty($this->users)): ?>
+					<?php foreach ($this->users as $key => $user): ?>
+						<tr>
+							<td><?= $user->id;?></td>
+							<td><?= $user->email;?></td>
+							<td><?= mb_convert_case($user->level, MB_CASE_TITLE, "UTF-8");?></td>
+							<?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
+								<td class="text-center">
+									<a href="/user/edit/<?= $user->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
+										<i class="far fa-edit"></i>
+									</a>
+									<a title="Excluir" class="px-2 text-danger pointer btnUserDelete" data-user-delete="<?= $user->id;?>">
+										<i class="far fa-minus-square"></i>
+									</a>
+								</td>
+							<?php endif; ?>
+						</tr>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<tr>
+						<td class="text-center" colspan="5">
+							<span class="font-weight-light text-danger font-weight-bold">Nenhum usuário cadastrado!</span>
+						</td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+	</div>
 </div>
 
