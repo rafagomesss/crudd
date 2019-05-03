@@ -22,7 +22,7 @@ $(document).ready(function() {
             password : {
                 required : 'A senha é uma informação obrigatória',
                 minlength: 'A senha deve conter no mínimo 8 caracteres'
-            } 
+            }
         }
     });
     $('#btnFormAuthLogin').on('click', function(){
@@ -52,7 +52,11 @@ $(document).ready(function() {
                             redirect = data.redirect;
                             break;
                     }
-                    configModalAlert(modal, message, classes, redirect);
+                    swal({
+                        title: message,
+                        icon: classes,
+                        closeOnEsc: false,
+                    });
                     return false;
                 }
                 window.location.href = data.redirect;
