@@ -1,12 +1,12 @@
 <div class="row justify-content-center">
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Cadastro</h5>
+    <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">CADASTRO</h5>
             </div>
             <div class="card-body">
                 <form id="formAuthRegister" name="formAuthRegister" action="/auth/register" method="POST">
-                    <h5>DADOS PESSOAIS</h5>
+                    <h6 class="font-weight-bold text-info">DADOS PESSOAIS</h6>
                     <div class="form-group">
                         <label for="name">Nome Completo</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Ex. João da Silva" data-validation="required">
@@ -50,7 +50,7 @@
                         <label for="address_compl">Complemento</label>
                         <input id="address_compl" name="address_compl" type="text" class="form-control" placeholder="Ex. Bloco B">
                     </div>
-                    <h5>DADOS DE ACESSO</h5>
+                    <h6 class="font-weight-bold text-info">DADOS DE ACESSO</h6>
                     <div class="form-group">
                         <label for="inputEmail4">E-mail</label>
                         <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com">

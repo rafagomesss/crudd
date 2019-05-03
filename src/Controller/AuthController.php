@@ -3,6 +3,7 @@ namespace Crud\Controller;
 
 use Crud\Model\ModelUser;
 use Crud\View\View;
+use System\Common;
 use System\Constants;
 use System\PasswordManager;
 use System\Session\Session;
@@ -85,6 +86,7 @@ class AuthController
             $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data['password'] = PasswordManager::passwordHash($data['password']);
             unset($data['confirmPassword']);
+            $data['birthdate'] = Common::convertDateToDataBase($data['birthdate']);
             $insert = current($this->model->executeProcedureReturbale('userRegister', $data));
             if ((int) $insert->user_access_id > 0 && (int) $insert->user_id > 0) {
                 $retorno = ['message' => 'Registro salvo com sucesso!'];
