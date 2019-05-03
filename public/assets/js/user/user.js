@@ -16,7 +16,7 @@ $(document).ready(function() {
 		},
 		messages: {
 			access_level : {
-				required: 'Campo nível de acesso é obrigatórió!',
+				required: 'Campo nível de acesso é obrigatório!',
 			},
 			email: {
 				required: 'Precisamos que informe um e-mail para efetuar o registro',
