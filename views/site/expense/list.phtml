@@ -20,10 +20,10 @@
                             <td>R$<?= number_format($expense->value, 2, ',', '.');?></td>
                             <td><?= $expense->category_id;?></td>
                             <td class="text-center">
-                                <a href="/user/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
+                                <a href="/expense/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a title="Excluir" class="px-2 text-danger pointer btnUserDelete" data-user-delete="<?= $expense->id;?>">
+                                <a title="Excluir" class="px-2 text-danger pointer btnExpenseDelete" data-expense-delete="<?= $expense->id;?>">
                                     <i class="far fa-minus-square"></i>
                                 </a>
                             </td>
@@ -32,7 +32,7 @@
                 <?php else: ?>
                     <tr>
                         <td class="text-center" colspan="5">
-                            <span class="font-weight-light text-danger font-weight-bold">Nenhuma categoria cadastrada!</span>
+                            <span class="font-weight-light text-danger font-weight-bold">Nenhuma despesa cadastrada!</span>
                         </td>
                     </tr>
                 <?php endif; ?>
