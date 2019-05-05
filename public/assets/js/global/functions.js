@@ -11,20 +11,22 @@ $(document).ready(function() {
 	});
 });
 
-function configModalAlert(modal, message, classes, redirect = '')
+function configModalAlert(message, classes, redirect = '')
 {
 	const titleContent = {
-		'danger' : 'Erro!',
+		'error' : 'Erro!',
 		'warning' : 'Atenção!',
 		'success' : 'Sucesso!'
 	};
 
-	$(modal.concat(' .modal-border')).addClass('border-'.concat(classes));
-	$(modal).modal('show');
-	$(modal.concat(' .modal-title')).addClass('text-'.concat(classes)).html(titleContent[classes]);
-	$(modal.concat(' .modal-body .col.content')).html(message);
-	$(modal.concat(' #redirect')).val(redirect);
-	$(modal.concat(' #btnModalAlert')).addClass('btn-'.concat(classes)).focus();
+	swal({
+		title: titleContent[classes],
+		text: message,
+		icon: classes,
+	})
+	.then((value) => {
+		window.location.href = redirect;
+	});
 }
 
 function validarFormulario(form)

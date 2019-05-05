@@ -19,6 +19,7 @@ class AuthController
     private function authenticateUser($email)
     {
         $user = current($this->model->executeProcedureReturbale('getUserAccess', [$email]));
+        Session::set('USER_ID', $user->id);
         Session::set('USER', $user->email);
         Session::set('USER_NAME', $user->name);
         Session::set('ACCESS_LEVEL', $user->level);

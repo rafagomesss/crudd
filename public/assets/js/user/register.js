@@ -13,7 +13,6 @@ $(document).ready(function() {
 				console.log(data)
 				let message = data.message;
 				let classes = 'success';
-				let modal = '#modal-alert';
 				let redirect = '/user/list';
 				if (data.erro) {
 					classes = 'warning';
@@ -27,10 +26,10 @@ $(document).ready(function() {
 						break;
 					}
 				}
-				configModalAlert(modal, message, classes, redirect);
+				configModalAlert(message, classes, redirect);
 			}).fail(function(data) {
 				console.log(data.responseText)
-				configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
+				configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
 			});
 		}
 	});

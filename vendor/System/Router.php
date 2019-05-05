@@ -19,6 +19,14 @@ class Router
         $this->param = isset($uri[2]) && $uri[2] ? $uri[2] : [];
     }
 
+    private function controlNotSessionRouteAccess()
+    {
+        if (Session::has('USER_ID') && in_array($this->controller, array_keys(Constants::ONLY_NOT_SESSION)) && !in_array($this->action, Constants::ONLY_NOT_SESSION[$this->controller]['actions'])) {
+            Common::redirect('/');
+        }
+        $this->validateRoute();
+    }
+
     private function controlRestrictedRoutes()
     {
         if (Session::validateSessionUser() && isset(Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')])) {
@@ -26,6 +34,7 @@ class Router
                 self::notFound();
             }
         }
+        $this->controlNotSessionRouteAccess();
     }
 
     private function restrictRoute()
@@ -33,6 +42,7 @@ class Router
         if (in_array($this->controller, Constants::RULE_ROUTE_SESSION) && !Session::validateSessionUser()) {
             self::notFound();
         }
+        $this->controlRestrictedRoutes();
     }
 
     private function classExistsRouter()
@@ -58,8 +68,6 @@ class Router
     public function run()
     {
         $this->restrictRoute();
-        $this->controlRestrictedRoutes();
-        $this->validateRoute();
     }
 
     public static function notFound()

@@ -39,7 +39,6 @@ $(document).ready(function() {
                 console.log(data)
                 let message = data.message;
                 let classes = 'success';
-                let modal = '#modal-alert';
                 let redirect = data.redirect;
                 if (data.erro) {
                     classes = 'warning';
@@ -52,17 +51,12 @@ $(document).ready(function() {
                             redirect = data.redirect;
                             break;
                     }
-                    swal({
-                        title: message,
-                        icon: classes,
-                        closeOnEsc: false,
-                    });
-                    return false;
+                    configModalAlert(message, classes, redirect);
                 }
-                window.location.href = data.redirect;
+                window.location.href = redirect;
             }).fail(function(data) {
                 console.log(data.responseText)
-                configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
+                configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
             });
         }
     });

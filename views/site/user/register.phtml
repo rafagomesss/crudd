@@ -7,8 +7,8 @@
 			<div class="card-body">
 				<form id="formUserAccess" name="formUserAccess" method="POST" action="">
 					<div class="form-group">
-						<label for="access_level">Nível de Acesso</label>
-						<select class="form-control" name="access_level">
+						<label for="access_level_id">Nível de Acesso</label>
+						<select class="form-control" name="access_level_id">
 							<option value="">Selecione...</option>
 							<?php if (is_array($this->accessLevels) && !empty($this->accessLevels)) : ?>
 								<?php foreach ($this->accessLevels as $access) : ?>

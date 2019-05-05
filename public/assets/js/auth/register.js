@@ -113,7 +113,6 @@ $(document).ready(function(){
                 }
                 let message = 'Registro salvo com sucesso!';
                 let classes = 'success';
-                let modal = '#modal-alert';
                 let redirect = '/auth';
                 if (data.erro) {
                     classes = 'warning';
@@ -127,10 +126,10 @@ $(document).ready(function(){
                         break;
                     }
                 }
-                configModalAlert(modal, message, classes, redirect);
+                configModalAlert(message, classes, redirect);
             }).fail(function(data) {
                 console.log(data.responseText)
-                configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
+                configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
             });
         }
     });

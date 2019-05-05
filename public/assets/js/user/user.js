@@ -3,7 +3,7 @@ $(document).ready(function() {
 		errorClass: "is-invalid small text-danger",
 		validClass: "is-valid",
 		rules: {
-			access_level : "required",
+			access_level_id : "required",
 			email: {
 				required: true,
 				email: true,
@@ -41,7 +41,7 @@ $(document).ready(function() {
 			let modal = '#modal-alert';
 			let redirect = '/user/list';
 			if (data.erro) {
-				classes = 'danger';
+				classes = 'warning';
 				redirect = '';
 				switch (data.code) {
 					case '23000':
@@ -52,9 +52,9 @@ $(document).ready(function() {
 					break;
 				}
 			}
-			configModalAlert(modal, message, classes, redirect);
+			configModalAlert(message, classes, redirect);
 		}).fail(function() {
-			configModalAlert('#modal-alert', 'Ocorreu um erro ao salvar o registro!', 'danger');
+			configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
 		});
 	});
 
@@ -71,10 +71,9 @@ $(document).ready(function() {
 			}).done(function(data) {
 				let message = data.message;
 				let classes = 'success';
-				let modal = '#modal-alert';
 				let redirect = '/user/list';
 				if (data.erro) {
-					classes = 'danger';
+					classes = 'warning';
 					redirect = '';
 					switch (data.code) {
 						case '23000':
@@ -85,9 +84,9 @@ $(document).ready(function() {
 						break;
 					}
 				}
-				configModalAlert(modal, message, classes, redirect);
+				configModalAlert(message, classes, redirect);
 			}).fail(function() {
-				configModalAlert('#modal-alert', 'Ocorreu um erro ao atualizar o registro!', 'danger');
+				configModalAlert('Ocorreu um erro ao atualizar o registro!', 'error');
 			});
 		}
 	});

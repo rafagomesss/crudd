@@ -11,6 +11,7 @@ class Constants
                     'action' => [
                         'edit',
                         'register',
+                        'list'
                     ],
                 ],
             ],
@@ -20,6 +21,12 @@ class Constants
     const RULE_ROUTE_SESSION = [
         'user',
         'expense'
+    ];
+
+    const ONLY_NOT_SESSION = [
+        'auth' => [
+            'exceptionActions' => 'logout'
+        ]
     ];
 
     const ACCESS_LEVEL = [

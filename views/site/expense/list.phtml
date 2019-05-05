@@ -6,8 +6,9 @@
                 <tr>
                     <th>#</th>
                     <th>Descrição</th>
-                    <th>Categoria</th>
                     <th>Valor</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -18,7 +19,8 @@
                             <td><?= $expense->id;?></td>
                             <td><?= $expense->description;?></td>
                             <td>R$<?= number_format($expense->value, 2, ',', '.');?></td>
-                            <td><?= $expense->category_id;?></td>
+                            <td><?= $expense->category;?></td>
+                            <td><?= $expense->date;?></td>
                             <td class="text-center">
                                 <a href="/expense/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
                                     <i class="far fa-edit"></i>
@@ -31,7 +33,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td class="text-center" colspan="5">
+                        <td class="text-center" colspan="6">
                             <span class="font-weight-light text-danger font-weight-bold">Nenhuma despesa cadastrada!</span>
                         </td>
                     </tr>

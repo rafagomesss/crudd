@@ -57,10 +57,8 @@ class Model extends Connection
 	{
 		try{
 			$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$stmt = $this->connection->prepare("INSERT INTO {$this->table} (email, password, access_level_id) VALUES (:email, :password, :access_level_id)");
-			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
-			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
-			$stmt->bindValue(':access_level_id', $data['access_level'] ?? 2, \PDO::PARAM_INT);
+			$sql = "INSERT INTO {$this->table} (" . implode(',', array_keys($data)). ") VALUES (:" . implode(', :', array_keys($data)) . ")";
+			$stmt = $this->bind($sql, $data);
 			$stmt->execute();
 			return ['message' => 'Registro salvo com sucesso!'];
 		} catch (\PDOException $e) {

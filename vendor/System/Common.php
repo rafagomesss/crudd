@@ -10,4 +10,9 @@ class Common
         $dateTime = new \DateTime($aux, new \DateTimezone("America/Sao_Paulo"));
         return $dateTime->format('Y-m-d');
     }
+
+    public static function redirect($route)
+    {
+        header("Location: {$route}");
+    }
 }

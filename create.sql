@@ -104,6 +104,8 @@ CREATE TABLE IF NOT EXISTS expense
 /**
  * @Procedure listUserAccess
  * Lista todos os usuários de acesso ao sistema
+ *
+ * DROP PROCEDURE IF EXISTS listUserAccess;
  */
 DELIMITER $$
 CREATE PROCEDURE listUserAccess()
@@ -121,6 +123,8 @@ DELIMITER ;
 /**
  * @Procedure userRegister
  * Registra usuários no sistema
+ *
+ * DROP PROCEDURE IF EXISTS userRegister;
  */
 DELIMITER $$
 CREATE PROCEDURE userRegister(
@@ -170,11 +174,14 @@ DELIMITER ;
  * @Procedure getUserAccess
  * Recupera usuário que acabou de logar no sistema
  * Autenticação
+ *
+ * DROP PROCEDURE IF EXISTS getUserAccess;
  */
 DELIMITER $$
 CREATE PROCEDURE getUserAccess(IN email VARCHAR(80))
 	BEGIN
 		SELECT
+			ua.id,
 		    u.name,
 		    ua.email,
 		    al.description AS level
@@ -184,5 +191,28 @@ CREATE PROCEDURE getUserAccess(IN email VARCHAR(80))
 		INNER JOIN access_level AS al
 			ON al.id = ua.access_level_id
 		WHERE ua.email = email;
+	END $$
+DELIMITER ;
+
+/**
+ * @Procedure getUserExpenses
+ * Recupera usuário que acabou de logar no sistema
+ * Autenticação
+ *
+ * DROP PROCEDURE IF EXISTS getUserExpenses;
+ */
+DELIMITER $$
+CREATE PROCEDURE getUserExpenses(IN id INT(10))
+	BEGIN
+		SELECT
+			ex.id,
+			ex.description,
+		    ex.value,
+		    c.description AS category,
+		    ex.created_at AS date
+		FROM expense AS ex
+			INNER JOIN category AS c
+		    ON c.id = ex.category_id
+		WHERE user_access_id = id;
 	END $$
 DELIMITER ;
