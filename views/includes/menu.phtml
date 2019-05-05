@@ -41,37 +41,35 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Ações:</h6>
                     <a class="collapse-item" href="/expense/list">Listar</a>
-                    <?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
-                        <a class="collapse-item" href="/expense/register">Cadastrar</a>
-                    <?php endif; ?>
+                    <a class="collapse-item" href="/expense/register">Cadastrar</a>
                 </div>
             </div>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-    <?php endif; ?>
 
-    <div class="sidebar-heading">
-        Administrativo
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuItemsUser" aria-expanded="true" aria-controls="menuItemsUser">
-                <i class="fas fa-users"></i>
-                <span>Usuários</span>
-            </a>
-            <div id="menuItemsUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Ações:</h6>
-                    <a class="collapse-item" href="/user/list">Listar</a>
-                    <?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
-                        <a class="collapse-item" href="/user/register">Cadastrar</a>
-                    <?php endif; ?>
-                </div>
+        <?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
+            <div class="sidebar-heading">
+                Administrativo
             </div>
-        </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuItemsUser" aria-expanded="true" aria-controls="menuItemsUser">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+                <div id="menuItemsUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Ações:</h6>
+                        <a class="collapse-item" href="/user/list">Listar</a>
+                        <a class="collapse-item" href="/user/register">Cadastrar</a>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+    <?php endif; ?>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
