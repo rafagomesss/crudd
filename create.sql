@@ -2,6 +2,9 @@ DROP DATABASE IF EXISTS omni;
 CREATE DATABASE IF NOT EXISTS omni;
 USE omni;
 
+/* ------------------------------
+------------- USERS -------------
+------------------------------ */
 DROP TABLE IF EXISTS access_level;
 CREATE TABLE IF NOT EXISTS access_level
 (
@@ -52,6 +55,46 @@ CREATE TABLE IF NOT EXISTS user
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION
 ) ENGINE = InnoDB DEFAULT CHARSET = Latin1;
+
+/* ------------------------------
+----------- EXPENSES ------------
+------------------------------ */
+
+DROP TABLE IF EXISTS  category;
+CREATE TABLE IF NOT EXISTS category
+(
+	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	description VARCHAR(255) NOT NULL,
+	icon VARCHAR(50) NOT NULL,
+	color VARCHAR(15) NOT NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_at DATETIME,
+	PRIMARY KEY (id)
+) ENGINE = InnoDB DEFAULT CHARSET = Latin1;
+
+DROP TABLE IF EXISTS  expense;
+CREATE TABLE IF NOT EXISTS expense
+(
+	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	description VARCHAR(255) NOT NULL,
+	value VARCHAR(50) NOT NULL,
+	category_id INT(10) UNSIGNED NOT NULL,
+	user_access_id INT(10) UNSIGNED NOT NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_at DATETIME,
+	PRIMARY KEY (id),
+	CONSTRAINT expense_category_id
+	FOREIGN KEY fk_expense_category_id(category_id)
+	REFERENCES category(id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+    CONSTRAINT expense_user_access_id
+	FOREIGN KEY fk_expense_user_access_id(user_access_id)
+	REFERENCES user_access(id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+) ENGINE = InnoDB DEFAULT CHARSET = Latin1;
+
 
 
 /**

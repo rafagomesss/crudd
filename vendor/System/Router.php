@@ -19,17 +19,11 @@ class Router
         $this->param = isset($uri[2]) && $uri[2] ? $uri[2] : [];
     }
 
-    private function notFound()
-    {
-        print(new \Crud\View\View('/404.phtml', true))->render();
-        exit();
-    }
-
     private function controlRestrictedRoutes()
     {
         if (Session::validateSessionUser() && isset(Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')])) {
             if (in_array($this->controller, array_keys(Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')]['controller'])) && in_array($this->action, Constants::RESTRICT_USER_ROUTE[Session::get('ACCESS_LEVEL')]['controller'][$this->controller]['action'])) {
-                $this->notFound();
+                self::notFound();
             }
         }
     }
@@ -37,19 +31,24 @@ class Router
     private function restrictRoute()
     {
         if (in_array($this->controller, Constants::RULE_ROUTE_SESSION) && !Session::validateSessionUser()) {
-            $this->notFound();
+            self::notFound();
         }
+    }
+
+    private function classExistsRouter()
+    {
+        return class_exists($this->controller = "Crud\Controller\\" . ucfirst($this->controller) . 'Controller');
+    }
+
+    private function methodExistsRouter()
+    {
+        return method_exists($this->controller, $this->action);
     }
 
     private function validateRoute()
     {
-        if (!class_exists($this->controller = "Crud\Controller\\" . ucfirst($this->controller) . 'Controller')) {
-            $this->notFound();
-        }
-
-        if (!method_exists($this->controller, $this->action)) {
-            $this->action = 'index';
-            $this->param = $this->action;
+        if (!$this->classExistsRouter() || !$this->methodExistsRouter()) {
+            self::notFound();
         }
 
         $response = call_user_func_array([new $this->controller, $this->action], [$this->param]);
@@ -61,5 +60,11 @@ class Router
         $this->restrictRoute();
         $this->controlRestrictedRoutes();
         $this->validateRoute();
+    }
+
+    public static function notFound()
+    {
+        print(new \Crud\View\View('/404.phtml', true))->render();
+        exit();
     }
 }

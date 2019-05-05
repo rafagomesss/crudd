@@ -15,11 +15,6 @@ class UserController
         $this->model = new ModelUser();
     }
 
-    public function index()
-    {
-        return $this->list();
-    }
-
     public function list()
     {
         $view = new View('site/user/list.phtml', true);

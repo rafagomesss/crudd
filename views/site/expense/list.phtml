@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8 col-sm-8 col-md-10 col-lg-10">
+        <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS</h5>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <?php if (\System\Session\Session::get('ACCESS_LEVEL') === \System\Constants::ACCESS_LEVEL[1]) : ?>
+                        <th>Ações</th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (is_array($this->myExpenses) && !empty($this->myExpenses)): ?>
+                    <?php foreach ($this->myExpenses as $key => $expense): ?>
+                        <tr>
+                            <td><?= $expense->id;?></td>
+                            <td><?= $expense->description;?></td>
+                            <td>R$<?= number_format($expense->value, 2, ',', '.');?></td>
+                            <td><?= $expense->category_id;?></td>
+                            <td class="text-center">
+                                <a href="/user/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                                <a title="Excluir" class="px-2 text-danger pointer btnUserDelete" data-user-delete="<?= $expense->id;?>">
+                                    <i class="far fa-minus-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td class="text-center" colspan="5">
+                            <span class="font-weight-light text-danger font-weight-bold">Nenhuma categoria cadastrada!</span>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

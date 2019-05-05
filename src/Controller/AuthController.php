@@ -4,7 +4,6 @@ namespace Crud\Controller;
 use Crud\Model\ModelUser;
 use Crud\View\View;
 use System\Common;
-use System\Constants;
 use System\PasswordManager;
 use System\Session\Session;
 

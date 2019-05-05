@@ -1,7 +1,14 @@
 $(document).ready(function(){
+    $('#birthdate').datepicker();
+    $('#birthdate').datepicker('option',{
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+       
+    });
+    $( '#birthdate' ).datepicker( $.datepicker.regional[ "pt-BR" ] );
     $('#cpf').mask('000.000.000-00');
     $('#cellphone').mask('(00) 0 0000-0000');
-    $('#birthdate').mask('00/00/0000', {placeholder: "__/__/____"});
     $("#formAuthRegister").validate({
         errorClass: "is-invalid small text-danger",
         validClass: "is-valid",

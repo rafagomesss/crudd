@@ -1,18 +1,17 @@
 <?php
 namespace Crud\View;
 
+use System\Router;
+
 class View
 {
     private $view;
-    private $data = [];
     private $menu;
 
     public function __construct($view, $menu = false)
     {
-        $this->view = $view;
+        $this->view = VIEWS_PATH . DIRECTORY_SEPARATOR . $view;
         $this->menu = $menu;
-        ob_start();
-        require VIEWS_INCLUDES_PATH . '/header.phtml';
     }
 
     public function __set($index, $value)
@@ -27,8 +26,14 @@ class View
 
     public function render()
     {
-        require VIEWS_PATH . DIRECTORY_SEPARATOR . $this->view;
-        require VIEWS_INCLUDES_PATH . '/footer.phtml';
+        ob_start();
+        if (is_file($this->view)) {
+            require VIEWS_INCLUDES_PATH . '/header.phtml';
+            require $this->view;
+            require VIEWS_INCLUDES_PATH . '/footer.phtml';
+        } else {
+            Router::notFound();
+        }
         return ob_get_clean();
     }
 }
