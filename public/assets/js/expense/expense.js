@@ -55,7 +55,8 @@ $(document).ready(function() {
                     }
                 }
                 configModalAlert(message, classes, redirect);
-            }).fail(function() {
+            }).fail(function(data) {
+                console.log(data)
                 configModalAlert('Ocorreu um erro ao atualizar o registro!', 'error');
             });
         }

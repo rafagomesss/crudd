@@ -15,6 +15,7 @@ $(document).ready(function() {
                 dataType: 'JSON',
                 data: data
             }).done(function(data) {
+                console.log(data)
                 let message = data.message;
                 let classes = 'success';
                 let redirect = '/category/list';
@@ -31,7 +32,8 @@ $(document).ready(function() {
                     }
                 }
                 configModalAlert(message, classes, redirect);
-            }).fail(function() {
+            }).fail(function(data) {
+                console.log(data)
                 configModalAlert('Ocorreu um erro ao atualizar o registro!', 'error');
             });
         }

@@ -86,7 +86,8 @@ class Model extends Connection
 	{
 		try{
 			if (!array_key_exists('id', $data)) {
-				throw new \PDOException("ID não encontrado", 1);
+				throw new CruddException('warning', 'ID não encontrado!', 286, true);
+				// throw new \PDOException("ID não encontrado", 1);
 			}
 
 			$datasSql = '';
@@ -104,11 +105,10 @@ class Model extends Connection
 
 			$stmt = $this->bind($sql, $data);
 			$stmt->execute();
-			if ($stmt->execute()) {
+			if ($stmt->rowCount() > 0) {
 				return ['message' => 'Registro atualizado com sucesso!'];
-			} else {
-				throw new \PDOException("Falha ao atualizar registro", 2);
 			}
+			throw new CruddException('error', 'Falha ao atualizar registro!', 2, true);
 		} catch (\PDOException $e) {
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
 		}
