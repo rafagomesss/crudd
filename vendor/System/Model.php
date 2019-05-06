@@ -2,6 +2,7 @@
 namespace System;
 
 use System\Connection;
+use System\Router;
 
 class Model extends Connection
 {
@@ -74,9 +75,8 @@ class Model extends Connection
 			$delete->execute();
 			if ($delete->rowCount() > 0) {
 				return ['message' => 'Registro excluído com sucesso!'];
-			} else {
-				throw new \PDOException("Registro não encontrado", 1);
 			}
+			throw new CruddException('danger', 'Registro não encontrado!', 286);
 		} catch (\PDOException $e) {
 			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
 		}
