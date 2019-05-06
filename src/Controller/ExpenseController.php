@@ -4,6 +4,7 @@ namespace Crud\Controller;
 use Crud\Model\ModelCategory;
 use Crud\Model\ModelExpense;
 use Crud\View\View;
+use System\CruddException;
 use System\Session\Session;
 
 class ExpenseController
@@ -28,6 +29,9 @@ class ExpenseController
         $view->controller = 'expense';
         $view->viewName = 'register';
         $view->categories = (new ModelCategory())->findAll();
+        if (empty($view->categories)) {
+            throw new CruddException('warning', 'Não há categorias cadastradas', 656);
+        }
         return $view->render();
     }
 

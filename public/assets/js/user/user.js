@@ -36,6 +36,7 @@ $(document).ready(function() {
 			dataType: 'JSON',
 			data: {id: $(this).data('user-delete')}
 		}).done(function(data) {
+			console.log(data)
 			let message = data.message;
 			let classes = 'success';
 			let redirect = '/user/list';
@@ -44,7 +45,7 @@ $(document).ready(function() {
 				redirect = '';
 				switch (data.code) {
 					case '23000':
-					message = 'O e-mail informado já existe!';
+					message = 'Usuário com cadastro completo, não pode ser excluído!';
 					break;
 					default:
 					message = data.message;

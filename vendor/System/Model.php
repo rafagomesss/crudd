@@ -87,7 +87,6 @@ class Model extends Connection
 		try{
 			if (!array_key_exists('id', $data)) {
 				throw new CruddException('warning', 'ID não encontrado!', 286, true);
-				// throw new \PDOException("ID não encontrado", 1);
 			}
 
 			$datasSql = '';
