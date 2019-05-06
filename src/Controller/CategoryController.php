@@ -18,4 +18,18 @@ class CategoryController
         $view->viewName = 'register';
         return $view->render();
     }
+
+    public function insert()
+    {
+        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        echo json_encode($this->model->insert($data));
+    }
+
+    public function list()
+    {
+        $view = new View('site/category/list.phtml', true);
+        $view->controller = 'category';
+        $view->categories = $this->model->findAll();
+        return $view->render();
+    }
 }
