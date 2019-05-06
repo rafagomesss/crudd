@@ -86,11 +86,24 @@ class Model extends Connection
 	public function update(array $data): array
 	{
 		try{
-			$stmt = $this->connection->prepare("UPDATE {$this->table} SET email = :email, password = :password, access_level_id = :access_level_id WHERE id = :id");
-			$stmt->bindValue(':email', $data['email'], \PDO::PARAM_STR);
-			$stmt->bindValue(':password', password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 12]), \PDO::PARAM_STR);
-			$stmt->bindValue(':id', $data['id'], \PDO::PARAM_INT);
-			$stmt->bindValue(':access_level_id', $data['access_level'], \PDO::PARAM_INT);
+			if (!array_key_exists('id', $data)) {
+				throw new \PDOException("ID não encontrado", 1);
+			}
+
+			$datasSql = '';
+
+			foreach($data as $key => $value)
+			{
+				if($key !== 'id') {
+					$datasSql .= $key . ' = ' . ':' . $key . ', ';
+				}
+			}
+
+			$datasSql = substr($datasSql, 0, -2);
+
+			$sql = "UPDATE " . $this->table . " SET " . $datasSql . " WHERE id = :id";
+
+			$stmt = $this->bind($sql, $data);
 			$stmt->execute();
 			if ($stmt->execute()) {
 				return ['message' => 'Registro atualizado com sucesso!'];

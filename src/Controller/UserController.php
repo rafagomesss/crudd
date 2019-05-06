@@ -2,9 +2,12 @@
 namespace Crud\Controller;
 
 use Crud\Controller\UserController;
-use Crud\View\View;
-use Crud\Model\ModelUser;
 use Crud\Model\ModelAccessLevel;
+use Crud\Model\ModelUser;
+use Crud\View\View;
+use System\Common;
+use System\Constants;
+use System\PasswordManager;
 
 class UserController
 {
@@ -13,6 +16,17 @@ class UserController
     public function __construct()
     {
         $this->model = new ModelUser();
+    }
+
+    private function filterUserData(): array
+    {
+        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = Common::removeEmptyValueArray($data);
+        $data['password'] = PasswordManager::passwordHash($data['password']);
+        if (array_key_exists('confirmPassword', $data)) {
+            unset($data['confirmPassword']);
+        }
+        return $data;
     }
 
     public function list()
@@ -53,7 +67,7 @@ class UserController
 
     public function update()
     {
-        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = $this->filterUserData();
         echo json_encode($this->model->update($data));
     }
 }

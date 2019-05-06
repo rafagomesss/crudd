@@ -52,6 +52,7 @@ $(document).ready(function() {
                             break;
                     }
                     configModalAlert(message, classes, redirect);
+                    return false;
                 }
                 window.location.href = redirect;
             }).fail(function(data) {

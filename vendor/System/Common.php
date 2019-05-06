@@ -15,4 +15,15 @@ class Common
     {
         header("Location: {$route}");
     }
+
+    public static function removeEmptyValueArray(array $array = []): array
+    {
+        $retorno = $array;
+        foreach ($retorno as $key => $value) {
+            if (empty($value)) {
+                unset($retorno[$key]);
+            }
+        }
+        return $retorno;
+    }
 }

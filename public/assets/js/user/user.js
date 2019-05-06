@@ -38,7 +38,6 @@ $(document).ready(function() {
 		}).done(function(data) {
 			let message = data.message;
 			let classes = 'success';
-			let modal = '#modal-alert';
 			let redirect = '/user/list';
 			if (data.erro) {
 				classes = 'warning';

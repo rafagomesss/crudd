@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#value').mask("#.##0,00", {reverse: true});
     $("#formRegisterExpense").validate({
         errorClass: "is-invalid small text-danger",
         validClass: "is-valid",

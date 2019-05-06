@@ -4,7 +4,6 @@ $(document).ready(function(){
         changeMonth: true,
         changeYear: true,
         dateFormat: "dd/mm/yy",
-       
     });
     $( '#birthdate' ).datepicker( $.datepicker.regional[ "pt-BR" ] );
     $('#cpf').mask('000.000.000-00');
@@ -32,6 +31,7 @@ $(document).ready(function(){
                 minlength: 13,
                 maxlength: 14
             },
+            birthdate: "required",
             email: {
                 required: true,
                 email: true,
@@ -65,6 +65,9 @@ $(document).ready(function(){
             cpf: {
                 required: "O campo cpf é obrigatório!",
                 minlength: "O cpf deve conter no mínimo 11 dígitos"
+            },
+            birthdate: {
+                required: "O campo data de nascimento é obrigatório!"
             },
             email: {
                 required: 'Precisamos que informe um e-mail para efetuar o acesso',
