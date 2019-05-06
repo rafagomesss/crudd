@@ -53,10 +53,9 @@ class Model extends Connection
 		return current($this->where(['id' => $id], '', $fields));
 	}
 
-	public function insert()
+	public function insert(array $data = [])
 	{
 		try{
-			$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$sql = "INSERT INTO {$this->table} (" . implode(',', array_keys($data)). ") VALUES (:" . implode(', :', array_keys($data)) . ")";
 			$stmt = $this->bind($sql, $data);
 			$stmt->execute();

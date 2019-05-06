@@ -57,7 +57,8 @@ class UserController
 
     public function insert()
     {
-        echo json_encode($this->model->insert());
+        $data = $this->filterUserData();
+        echo json_encode($this->model->insert($data));
     }
 
     public function delete()

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#value').mask("#.##0,00", {reverse: true});
     $('.btnExpenseDelete').on('click', function() {
         $.ajax({
             url: '/expense/delete',

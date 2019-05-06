@@ -42,7 +42,8 @@ class ExpenseController
 
     public function insert()
     {
-        echo json_encode($this->model->insert());
+        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        echo json_encode($this->model->insert($data));
     }
 
     public function delete()
