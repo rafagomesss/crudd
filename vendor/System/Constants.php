@@ -33,8 +33,10 @@ class Constants
 
     const ONLY_NOT_SESSION = [
         'auth' => [
-            'exceptionActions' => 'logout'
-        ]
+            'exceptionActions' => [
+                'logout'
+            ],
+        ],
     ];
 
     const ACCESS_LEVEL = [

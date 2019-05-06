@@ -21,7 +21,7 @@ class Router
 
     private function controlNotSessionRouteAccess()
     {
-        if (Session::has('USER_ID') && in_array($this->controller, array_keys(Constants::ONLY_NOT_SESSION)) && !in_array($this->action, Constants::ONLY_NOT_SESSION[$this->controller]['actions'])) {
+        if (Session::has('USER_ID') && in_array($this->controller, array_keys(Constants::ONLY_NOT_SESSION)) && !in_array($this->action, Constants::ONLY_NOT_SESSION[$this->controller]['exceptionActions'])) {
             Common::redirect('/');
         }
         $this->validateRoute();
