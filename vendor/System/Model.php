@@ -65,9 +65,9 @@ class Model extends Connection
 		}
 	}
 
-	public function delete($id = null)
+	public function delete()
 	{
-		$id = $id ?? filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+		$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 		try{
 			$sql = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
 			$delete = $this->bind($sql, ['id' => $id]);
