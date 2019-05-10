@@ -101,10 +101,8 @@ class Model extends Connection
 			$datasSql = substr($datasSql, 0, -2);
 
 			$sql = "UPDATE " . $this->table . " SET " . $datasSql . " WHERE id = :id";
-
 			$stmt = $this->bind($sql, $data);
-			$stmt->execute();
-			if ($stmt->rowCount() > 0) {
+			if ($stmt->execute()) {
 				return ['message' => 'Registro atualizado com sucesso!'];
 			}
 			throw new CruddException('error', 'Falha ao atualizar registro!', 2, true);

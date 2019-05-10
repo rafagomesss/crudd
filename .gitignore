@@ -2,3 +2,4 @@ sql.sql
 use.sql
 .phpintel/
 /nbproject/private/
+.vscode/
