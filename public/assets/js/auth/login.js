@@ -15,7 +15,7 @@ $(document).ready(function() {
         },
         messages: {
             email: {
-                required: 'Precisamos que informe um e-mail para efetuar o acesso',
+                required: 'Informe o e-mail para efetuar o acesso',
                 email: 'E-mail informado possui formato inválido. Exemplo de um formato válido: nome@dominio.com',
                 minlength: 'E-mail deve conter no mínimo 7 caracteres'
             },

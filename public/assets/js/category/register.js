@@ -37,7 +37,7 @@ $(document).ready(function() {
                     redirect = '';
                     switch (data.code) {
                         case '23000':
-                        message = 'O e-mail informado já existe!';
+                        message = 'A categoria informada já existe!';
                         break;
                         default:
                         message = 'Ocorreu um erro ao salvar o registro';

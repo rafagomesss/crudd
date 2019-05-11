@@ -13,9 +13,6 @@ CREATE TABLE IF NOT EXISTS access_level
     PRIMARY KEY (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = Latin1;
 
-INSERT INTO access_level (description) VALUES('ADMIN');
-INSERT INTO access_level (description) VALUES('USER');
-
 DROP TABLE IF EXISTS user_access;
 CREATE TABLE IF NOT EXISTS user_access
 (
@@ -64,7 +61,7 @@ DROP TABLE IF EXISTS  category;
 CREATE TABLE IF NOT EXISTS category
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	description VARCHAR(255) NOT NULL,
+	description VARCHAR(255) UNIQUE NOT NULL,
 	icon VARCHAR(50) NOT NULL,
 	color VARCHAR(15) NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -140,11 +137,20 @@ CREATE PROCEDURE userRegister(
 	IN password VARCHAR(72))
 	BEGIN
 		SET @access_level_id = 2;
+        SET @user_access_id_inserted = 0;
+        SET @user_id_inserted = 0;
+        START TRANSACTION;
 		INSERT INTO user_access (email, password, access_level_id) VALUES (email, password, @access_level_id);
-		SET @user_access_id_inserted = 0;
-		SET @user_id_inserted = 0;
 		SELECT LAST_INSERT_ID() INTO @user_access_id_inserted;
-		INSERT INTO user(
+        
+        IF (SELECT @user_access_id_inserted <= 0) THEN
+			ROLLBACK;
+		ELSE
+			COMMIT;
+		END IF;
+		
+        START TRANSACTION;
+        INSERT INTO user(
 			name,
 			cpf,
 			gender,
@@ -167,6 +173,12 @@ CREATE PROCEDURE userRegister(
 		);
 		SELECT LAST_INSERT_ID() INTO @user_id_inserted;
 		SELECT @user_access_id_inserted AS user_access_id, @user_id_inserted AS user_id;
+        IF (SELECT @user_id_inserted <= 0) THEN
+			ROLLBACK;
+		ELSE
+			COMMIT;
+		END IF;
+        
 	END $$
 DELIMITER ;
 
