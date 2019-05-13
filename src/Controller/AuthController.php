@@ -90,7 +90,7 @@ class AuthController
             unset($data['confirmPassword']);
             $data['birthdate'] = Common::convertDateToDataBase($data['birthdate']);
             $insert = current($this->model->executeProcedureReturbale('userRegister', $data));
-            if ((int)$insert->user_access_id > 0 && (int)$insert->user_id > 0) {
+            if ((int) $insert->user_access_id > 0 && (int) $insert->user_id > 0) {
                 $retorno = ['message' => 'Registro salvo com sucesso!'];
             }
         } catch (Exception $e) {

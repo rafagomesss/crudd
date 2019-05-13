@@ -16,13 +16,16 @@ function configModalAlert(message, classes, redirect = '')
 	const titleContent = {
 		'error' : 'Erro!',
 		'warning' : 'Atenção!',
-		'success' : 'Sucesso!'
+		'success' : 'Sucesso!',
+		'info' : 'Informação!',
+		'question' : 'Questionamento'
 	};
 
-	swal({
+	Swal.fire({
 		title: titleContent[classes],
 		text: message,
-		icon: classes,
+		type: classes,
+		position: "center",
 	})
 	.then((value) => {
 		window.location.href = redirect;

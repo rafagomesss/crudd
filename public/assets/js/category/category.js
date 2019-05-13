@@ -54,7 +54,7 @@ $(document).ready(function() {
                 redirect = '';
                 switch (data.code) {
                     case '23000':
-                    message = 'O e-mail informado já existe!';
+                    message = 'Há registros dependentes dessa categoria!';
                     break;
                     default:
                     message = data.message;
