@@ -1,6 +1,14 @@
+<div class="row justify-content-center mb-2">
+    <div class="col-6 col-sm-6 col-md-8 col-lg-8">
+        <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS</h5>
+    </div>
+    <div class="col-auto col-lg-2">
+        <a href="/expense/register" class="btn btn-sm btn-primary float-right"><i class="fas fa-plus pr-2"></i> Nova Despesa</a>
+    </div>
+</div>
 <div class="row justify-content-center">
     <div class="col-8 col-sm-8 col-md-10 col-lg-10">
-        <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS</h5>
+
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -14,23 +22,23 @@
             </thead>
             <tbody>
                 <?php if (is_array($this->myExpenses) && !empty($this->myExpenses)): ?>
-                    <?php foreach ($this->myExpenses as $key => $expense): ?>
-                        <tr>
-                            <td><?= $expense->id;?></td>
-                            <td><?= $expense->description;?></td>
-                            <td>R$<?= $expense->value;?></td>
-                            <td><?= $expense->category;?></td>
-                            <td><?= $expense->date;?></td>
-                            <td class="text-center">
-                                <a href="/expense/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
-                                    <i class="far fa-edit"></i>
-                                </a>
-                                <a title="Excluir" class="px-2 text-danger pointer btnExpenseDelete" data-expense-delete="<?= $expense->id;?>">
-                                    <i class="far fa-minus-square"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($this->myExpenses as $key => $expense): ?>
+                    <tr>
+                        <td><?= $expense->id;?></td>
+                        <td><?= $expense->description;?></td>
+                        <td>R$<?= $expense->value;?></td>
+                        <td><?= $expense->category;?></td>
+                        <td><?= $expense->date;?></td>
+                        <td class="text-center">
+                            <a href="/expense/edit/<?= $expense->id;?>" title="Editar" class="px-2 text-info btnUserEdit">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a title="Excluir" class="px-2 text-danger pointer btnExpenseDelete" data-expense-delete="<?= $expense->id;?>">
+                                <i class="far fa-minus-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
                         <td class="text-center" colspan="6">
@@ -40,6 +48,8 @@
                 <?php endif; ?>
             </tbody>
         </table>
+
     </div>
 </div>
+
 
