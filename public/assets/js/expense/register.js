@@ -6,7 +6,10 @@ $(document).ready(function() {
             category_id: "required",
             description: {
                 required: true,
-                minlength: 3
+                minlength: 3,
+                noSpace: function(element) {
+                    $(element).val($.trim($(element).val()));
+                }
             },
             value: "required",
         },

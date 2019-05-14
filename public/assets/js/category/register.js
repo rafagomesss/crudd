@@ -6,7 +6,10 @@ $(document).ready(function() {
             description: {
                 required: true,
                 minlength: 3,
-                maxlength: 50
+                maxlength: 50,
+                noSpace: function(element) {
+                    $(element).val($.trim($(element).val()));
+                }
             },
         },
         messages: {
