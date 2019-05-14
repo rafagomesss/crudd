@@ -3,6 +3,7 @@ namespace Crud\Controller;
 
 use Crud\Model\ModelCategory;
 use Crud\View\View;
+use System\CruddException;
 
 class CategoryController
 {
@@ -27,6 +28,10 @@ class CategoryController
 
     public function update()
     {
+        $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING);
+        if ($method !== 'POST') {
+            throw new CruddException('warning', 'Operação não permitida!', 950);
+        }
         $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         echo json_encode($this->model->update($data));
     }
