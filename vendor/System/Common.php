@@ -26,4 +26,34 @@ class Common
         }
         return $retorno;
     }
+
+    public static function filterDataToReport(string $parentIndex, array $data)
+    {
+        $response[$parentIndex] = [];
+        foreach ($data as $key => $value) {
+            if (is_object($value)) {
+                foreach ($value as $innerKey => $innerValue) {
+                    $response[$parentIndex][$innerKey][] = $innerValue;
+                }
+            }
+        }
+
+        foreach ($response[$parentIndex] as $key => $value) {
+            $response[$parentIndex][$key] = "'" . implode("', '"  , $value) . "'";
+        }
+
+        ${$parentIndex} = new class($response[$parentIndex]) {
+
+            public function __construct($attr)
+            {
+                foreach ($attr as $key => $value) {
+                    $this->{$key} = $value;
+                }
+                return $this;
+            }
+
+        };
+
+        return ${$parentIndex};
+    }
 }

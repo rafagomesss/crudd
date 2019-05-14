@@ -28,7 +28,8 @@ class Constants
     const RULE_ROUTE_SESSION = [
         'user',
         'expense',
-        'category'
+        'category',
+        'report'
     ];
 
     const ONLY_NOT_SESSION = [
