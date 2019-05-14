@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $('#formAuthLogin').keypress(function(event){
+        let keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode === 13){
+            $('#btnFormAuthLogin').click();
+        }
+    });
     $("#formAuthLogin").validate({
         errorClass: "is-invalid small text-danger",
         validClass: "is-valid",
