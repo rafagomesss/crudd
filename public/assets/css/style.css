@@ -128,6 +128,10 @@ span.span-information {
     font-weight: 500;
 }
 
+#image_cropper_register {
+    max-width: 100%;
+}
+
 @media only screen and (max-width: 767px) {
     .notfound .notfound-404 h1 {
         font-size: 148px;

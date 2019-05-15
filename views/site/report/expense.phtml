@@ -4,9 +4,19 @@
     </div>
 </div>
 <div class="row justify-content-center">
+    <?php if (empty($this->{$this->type})) :?>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h5 class="mb-0 text-center card-title font-weight-bold text-warning">NÃO HÁ DADOS</h5>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
     <div class="col-sm-6">
         <canvas id="myChart" width="400" height="250"></canvas>
     </div>
+    <?php endif; ?>
 </div>
 <script src="<?= JS_PATH;?>/global/Chart.bundle.min.js" type="text/javascript"></script>
 <script type="text/javascript">

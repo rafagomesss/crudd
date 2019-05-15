@@ -21,7 +21,7 @@ class ReportController
         $view->controller = 'report';
         $view->type = $type;
         $view->myExpenses = $this->model->executeProcedureReturbale('reportUserExpenseByCategory', [Session::get('USER_ID')]);
-        $view->{$type} = Common::filterDataToReport($type, $view->myExpenses);
+        $view->{$type} = empty($view->myExpenses) ? null : Common::filterDataToReport($type, $view->myExpenses);
         return $view->render();
     }
 }
