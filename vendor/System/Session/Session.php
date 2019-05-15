@@ -96,7 +96,6 @@ class Session implements \SessionHandlerInterface
 
     public function gc($maxlifetime): bool
     {
-        echo '<pre>' . print_r('here', 1) . '</pre>';exit;
         $old = time() - $maxlifetime;
 
         $sql = "DELETE FROM sessions WHERE access_at < :old";

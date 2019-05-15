@@ -46,7 +46,7 @@ class AuthController
                     'class' => 'success',
                 ];
             } else {
-                Session::destroy();
+                Session::destroySession();
                 $response = [
                     'erro' => true,
                     'message' => 'Senha inválida!',
