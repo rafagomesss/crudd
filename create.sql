@@ -222,7 +222,6 @@ DELIMITER ;
 /**
  * @Procedure getUserExpenses
  * Recupera usuário que acabou de logar no sistema
- * Autenticação
  *
  * DROP PROCEDURE IF EXISTS getUserExpenses;
  */
@@ -239,5 +238,28 @@ CREATE PROCEDURE getUserExpenses(IN id INT(10))
 			INNER JOIN category AS c
 		    ON c.id = ex.category_id
 		WHERE user_access_id = id;
+	END $$
+DELIMITER ;
+
+
+/**
+ * @Procedure reportUserExpenseByCategory
+ * Relatório de despesas do usuário (por categoria)
+ *
+ * DROP PROCEDURE IF EXISTS reportUserExpenseByCategory;
+ */
+DELIMITER $$
+CREATE PROCEDURE reportUserExpenseByCategory(IN user_id INT(10))
+	BEGIN
+		SELECT
+			c.description AS descrição,
+			count(c.description) AS quantidade
+		FROM category AS c
+			INNER JOIN expense AS e
+				ON e.category_id = c.id
+			INNER JOIN user_access AS ua
+				ON ua.id = e.user_access_id
+		WHERE ua.id = user_id
+		GROUP BY c.description;
 	END $$
 DELIMITER ;

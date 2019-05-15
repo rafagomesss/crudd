@@ -17,33 +17,58 @@
             labels: [<?= $this->{$this->type}->description;?>],
             datasets: [{
                 label: '# of Votes',
-                data: [12],
+                data: [<?= $this->{$this->type}->quantity;?>],
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    '#1C84C6',
+                    '#1AB394',
+                    '#23C6C8',
+                    '#F8AC59',
+                    '#ED5565',
+                    '#57BE55',
+                    '#FFEF66',
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    '#1C84C6',
+                    '#1AB394',
+                    '#23C6C8',
+                    '#F8AC59',
+                    '#ED5565',
+                    '#57BE55',
+                    '#FFEF66',
+                ],
+                hoverBackgroundColor: [
+                    '#125884',
+                    '#148D74',
+                    '#1C9C9E',
+                    '#D7944B',
+                    '#D44B59',
+                    '#4DA24B',
+                    '#FAE10B',
+                ],
+                hoverBorderColor: [
+                    '#125884',
+                    '#148D74',
+                    '#1C9C9E',
+                    '#D7944B',
+                    '#D44B59',
+                    '#4DA24B',
+                    '#FAE10B',
                 ],
                 borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
                     }
                 }]
+            },
+            legend: {
+                display: true,
+                position: 'right'
             }
         }
     });

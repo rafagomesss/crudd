@@ -20,7 +20,7 @@ class ReportController
         $view = new View("site/report/{$type}.phtml", true);
         $view->controller = 'report';
         $view->type = $type;
-        $view->myExpenses = $this->model->executeProcedureReturbale('getUserExpenses', [Session::get('USER_ID')]);
+        $view->myExpenses = $this->model->executeProcedureReturbale('reportUserExpenseByCategory', [Session::get('USER_ID')]);
         $view->{$type} = Common::filterDataToReport($type, $view->myExpenses);
         return $view->render();
     }
