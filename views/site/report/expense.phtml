@@ -16,7 +16,6 @@
         data: {
             labels: [<?= $this->{$this->type}->description;?>],
             datasets: [{
-                label: '# of Votes',
                 data: [<?= $this->{$this->type}->quantity;?>],
                 backgroundColor: [
                     '#1C84C6',
@@ -68,8 +67,8 @@
             },
             legend: {
                 display: true,
-                position: 'right'
-            }
+                position: 'right',
+            },
         }
     });
 
