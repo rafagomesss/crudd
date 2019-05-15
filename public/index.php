@@ -5,5 +5,6 @@ use System\CruddException;
 use System\Router;
 use System\Session\Session;
 
-Session::start();
+(new Session)->start();
 (new Router)->run();
+

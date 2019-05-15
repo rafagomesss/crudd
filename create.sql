@@ -3,6 +3,19 @@ CREATE DATABASE IF NOT EXISTS omni;
 USE omni;
 
 /* ------------------------------
+------------ SESSION ------------
+------------------------------ */
+DROP TABLE IF EXISTS sessions;
+CREATE TABLE IF NOT EXISTS sessions
+(
+	id SERIAL,
+	session_id TEXT NOT NULL,
+	access_at INTEGER,
+	data TEXT,
+	PRIMARY KEY(id)
+)ENGINE = InnoDB DEFAULT CHARSET = Latin1;
+
+/* ------------------------------
 ------------- USERS -------------
 ------------------------------ */
 DROP TABLE IF EXISTS access_level;

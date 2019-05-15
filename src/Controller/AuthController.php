@@ -68,8 +68,8 @@ class AuthController
 
     public function logout()
     {
-        Session::destroy();
-        Session::start();
+        Session::destroySession();
+        (new Session)->start();
         Session::set('success', 'Usuário foi deslogado com sucesso!');
         header('Location: /');
     }
