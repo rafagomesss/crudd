@@ -30,31 +30,46 @@ $(document).ready(function() {
 		}
 	});
 	$('.btnUserDelete').on('click', function() {
-		$.ajax({
-			url: '/user/delete',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {id: $(this).data('user-delete')}
-		}).done(function(data) {
-			console.log(data)
-			let message = data.message;
-			let classes = 'success';
-			let redirect = '/user/list';
-			if (data.erro) {
-				classes = 'warning';
-				redirect = '';
-				switch (data.code) {
-					case '23000':
-					message = 'Usuário com cadastro completo, não pode ser excluído!';
-					break;
-					default:
-					message = data.message;
-					break;
-				}
+		Swal.fire({
+            title: 'Deseja excluir esse usuário?',
+            text: '* Essa operação não pode ser desfeita!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#30D6A1',
+            cancelButtonColor: '#EF4747',
+            confirmButtonText: 'Sim, excluir!',
+            customClass: {
+                content: 'font-size-sm text-danger font-weight-bold',
+            }
+        }).then((result) => {
+            if (result.value) {
+				$.ajax({
+					url: '/user/delete',
+					type: 'POST',
+					dataType: 'JSON',
+					data: {id: $(this).data('user-delete')}
+				}).done(function(data) {
+					console.log(data)
+					let message = data.message;
+					let classes = 'success';
+					let redirect = '/user/list';
+					if (data.erro) {
+						classes = 'warning';
+						redirect = '';
+						switch (data.code) {
+							case '23000':
+							message = 'Usuário com cadastro completo, não pode ser excluído!';
+							break;
+							default:
+							message = data.message;
+							break;
+						}
+					}
+					configModalAlert(message, classes, redirect);
+				}).fail(function() {
+					configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
+				});
 			}
-			configModalAlert(message, classes, redirect);
-		}).fail(function() {
-			configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
 		});
 	});
 

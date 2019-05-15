@@ -40,30 +40,45 @@ $(document).ready(function() {
     });
 
     $('.btnCategoryDelete').on('click', function() {
-        $.ajax({
-            url: '/category/delete',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {id: $(this).data('category-delete')}
-        }).done(function(data) {
-            let message = data.message;
-            let classes = 'success';
-            let redirect = '/category/list';
-            if (data.erro) {
-                classes = 'warning';
-                redirect = '';
-                switch (data.code) {
-                    case '23000':
-                    message = 'Há registros dependentes dessa categoria!';
-                    break;
-                    default:
-                    message = data.message;
-                    break;
-                }
+        Swal.fire({
+            title: 'Deseja excluir essa categoria?',
+            text: '* Essa operação não pode ser desfeita!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#30D6A1',
+            cancelButtonColor: '#EF4747',
+            confirmButtonText: 'Sim, excluir!',
+            customClass: {
+                content: 'font-size-sm text-danger font-weight-bold',
             }
-            configModalAlert(message, classes, redirect);
-        }).fail(function() {
-            configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/category/delete',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {id: $(this).data('category-delete')}
+                }).done(function(data) {
+                    let message = data.message;
+                    let classes = 'success';
+                    let redirect = '/category/list';
+                    if (data.erro) {
+                        classes = 'warning';
+                        redirect = '';
+                        switch (data.code) {
+                            case '23000':
+                            message = 'Há registros dependentes dessa categoria!';
+                            break;
+                            default:
+                            message = data.message;
+                            break;
+                        }
+                    }
+                    configModalAlert(message, classes, redirect);
+                }).fail(function() {
+                    configModalAlert('Ocorreu um erro ao salvar o registro!', 'error');
+                });
+            }
         });
     });
 });
