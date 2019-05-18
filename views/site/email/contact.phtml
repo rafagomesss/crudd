@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <table class="table table-bordered table-inverse table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="5">INFORMAÇÕES</th>
+                        </tr>
+                        <tr>
+                            <th>NOME</th>
+                            <th>E-MAIL</th>
+                            <th>CONTATO</th>
+                            <th>MENSAGEM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <?= $this->nome;?>
+                            </td>
+                            <td>
+                                <?= $this->email;?>
+                            </td>
+                            <td>
+                                <?= $this->contato;?>
+                            </td>
+                            <td>
+                                <?= $this->mensagem;?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
