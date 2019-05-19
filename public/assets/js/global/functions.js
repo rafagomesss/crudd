@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('#btnEnterSystem').tooltip();
 	$.validator.methods.email = function( value, element ) {
-		return this.optional( element ) || /[a-z]+@[a-z]+\.[a-z]+/.test( value );
+		return this.optional( element ) || /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/.test( value );
 	}
 	$('#modal-alert').on('shown.bs.modal', function(e){
 		$('#btnModalAlert').focus();

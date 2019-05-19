@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    const image = document.getElementById('image_cropper_register');
+    /*const image = $('#image_cropper_register')[0];
     const cropper = new Cropper(image, {
         aspectRatio: 16 / 9,
         crop(event) {
@@ -11,7 +11,9 @@ $(document).ready(function(){
             console.log(event.detail.scaleX);
             console.log(event.detail.scaleY);
         },
-    });
+    });*/
+
+    $('#birthdate').mask('00/00/0000');
     $('#birthdate').datepicker();
     $('#birthdate').datepicker('option',{
         changeMonth: true,
