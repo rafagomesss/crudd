@@ -26,7 +26,7 @@
                     <tr>
                         <td><?= $expense->id;?></td>
                         <td><?= $expense->description;?></td>
-                        <td>R$<?= $expense->value;?></td>
+                        <td>R$ <?= number_format($expense->value, 2, ',', ' ');?></td>
                         <td><?= $expense->category;?></td>
                         <td><?= $expense->date;?></td>
                         <td class="text-center">
