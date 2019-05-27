@@ -3,7 +3,7 @@
         <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS POR VALOR</h5>
     </div>
 </div>
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-2">
     <?php if (empty($this->value)) :?>
         <div class="col-sm-6">
             <div class="card">
@@ -17,6 +17,11 @@
         <canvas id="myChart" width="400" height="250"></canvas>
     </div>
     <?php endif; ?>
+</div>
+<div class="row justify-content-center bg-dark py-3">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <h5 class="font-weight-bold text-white my-0">TOTAL: R$ <?= $this->total;?></h5>
+    </div>
 </div>
 <script src="<?= JS_PATH;?>/global/Chart.bundle.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -79,8 +84,7 @@
                 }]
             },
             legend: {
-                display: true,
-                position: 'right',
+                display: false,
             },
         },
     });
