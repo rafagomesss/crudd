@@ -253,8 +253,8 @@ DELIMITER $$
 CREATE PROCEDURE reportUserExpenseByCategory(IN user_id INT(10))
 	BEGIN
 		SELECT
-			c.description AS descrição,
-			count(c.description) AS quantidade
+			c.description,
+			count(c.description) AS quantity
 		FROM category AS c
 			INNER JOIN expense AS e
 				ON e.category_id = c.id
@@ -262,5 +262,25 @@ CREATE PROCEDURE reportUserExpenseByCategory(IN user_id INT(10))
 				ON ua.id = e.user_access_id
 		WHERE ua.id = user_id
 		GROUP BY c.description;
+	END $$
+DELIMITER ;
+
+/**
+ * @Procedure reportUserExpenseByValue
+ * Relatório de despesas do usuário (por categoria)
+ *
+ * DROP PROCEDURE IF EXISTS reportUserExpenseByValue;
+ */
+DELIMITER $$
+CREATE PROCEDURE reportUserExpenseByValue(IN user_id INT(10))
+	BEGIN
+		SELECT
+		    SUM(CAST(e.value AS DECIMAL(10,2))) AS value
+		    , c.description
+		FROM expense AS e
+			INNER JOIN category AS c
+				ON c.id = e.category_id
+		WHERE e.user_access_id = user_id
+		GROUP BY c.id;
 	END $$
 DELIMITER ;

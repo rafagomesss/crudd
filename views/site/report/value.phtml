@@ -1,0 +1,84 @@
+<div class="row justify-content-center mb-2">
+    <div class="col-6 col-sm-6 col-md-8 col-lg-8">
+        <h5 class="font-weight-bold text-primary">LISTA DE <?= mb_convert_case($this->type, MB_CASE_UPPER, "UTF-8");?></h5>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <?php if (empty($this->{$this->type})) :?>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h5 class="mb-0 text-center card-title font-weight-bold text-warning">NÃO HÁ DADOS</h5>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+    <div class="col-sm-6">
+        <canvas id="myChart" width="400" height="250"></canvas>
+    </div>
+    <?php endif; ?>
+</div>
+<script src="<?= JS_PATH;?>/global/Chart.bundle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'chart',
+        data: {
+            labels: [<?= $this->{$this->type}->description;?>],
+            datasets: [{
+                data: [<?= $this->{$this->type}->quantity;?>],
+                backgroundColor: [
+                    '#1C84C6',
+                    '#1AB394',
+                    '#23C6C8',
+                    '#F8AC59',
+                    '#ED5565',
+                    '#57BE55',
+                    '#FFEF66',
+                ],
+                borderColor: [
+                    '#1C84C6',
+                    '#1AB394',
+                    '#23C6C8',
+                    '#F8AC59',
+                    '#ED5565',
+                    '#57BE55',
+                    '#FFEF66',
+                ],
+                hoverBackgroundColor: [
+                    '#125884',
+                    '#148D74',
+                    '#1C9C9E',
+                    '#D7944B',
+                    '#D44B59',
+                    '#4DA24B',
+                    '#FAE10B',
+                ],
+                hoverBorderColor: [
+                    '#125884',
+                    '#148D74',
+                    '#1C9C9E',
+                    '#D7944B',
+                    '#D44B59',
+                    '#4DA24B',
+                    '#FAE10B',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: {
+                display: true,
+                position: 'right',
+            },
+        }
+    });
+</script>

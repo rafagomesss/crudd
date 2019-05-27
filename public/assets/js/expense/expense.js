@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#value').mask("#.##0,00", {reverse: true});
+    $('#value').mask("00 000.00", {reverse: true});
     $('.btnExpenseDelete').on('click', function() {
         Swal.fire({
             title: 'Deseja excluir essa despesa?',
