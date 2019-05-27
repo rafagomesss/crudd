@@ -1,10 +1,10 @@
-<div class="row justify-content-center mb-2">
+<div class="row justify-content-center mb-5">
     <div class="col-6 col-sm-6 col-md-8 col-lg-8">
-        <h5 class="font-weight-bold text-primary">LISTA DE <?= mb_convert_case($this->type, MB_CASE_UPPER, "UTF-8");?></h5>
+        <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS POR CATEGORIA</h5>
     </div>
 </div>
 <div class="row justify-content-center">
-    <?php if (empty($this->{$this->type})) :?>
+    <?php if (empty($this->category)) :?>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body p-4">
@@ -24,9 +24,9 @@
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: [<?= $this->{$this->type}->description;?>],
+            labels: [<?= $this->category->description;?>],
             datasets: [{
-                data: [<?= $this->{$this->type}->quantity;?>],
+                data: [<?= $this->category->quantity;?>],
                 backgroundColor: [
                     '#1C84C6',
                     '#1AB394',
