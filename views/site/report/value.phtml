@@ -1,10 +1,10 @@
-<div class="row justify-content-center mb-2">
+<div class="row justify-content-center mb-5">
     <div class="col-6 col-sm-6 col-md-8 col-lg-8">
-        <h5 class="font-weight-bold text-primary">LISTA DE <?= mb_convert_case($this->type, MB_CASE_UPPER, "UTF-8");?></h5>
+        <h5 class="font-weight-bold text-primary">LISTA DE DESPESAS POR VALOR</h5>
     </div>
 </div>
 <div class="row justify-content-center">
-    <?php if (empty($this->{$this->type})) :?>
+    <?php if (empty($this->value)) :?>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body p-4">
@@ -22,11 +22,12 @@
 <script type="text/javascript">
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
-        type: 'chart',
+        type: 'bar',
         data: {
-            labels: [<?= $this->{$this->type}->description;?>],
+            labels: [<?= $this->value->description;?>],
             datasets: [{
-                data: [<?= $this->{$this->type}->quantity;?>],
+                label: 'Total: R$' + <?= "'{$this->total}'";?>,
+                data: [<?= $this->value->value;?>],
                 backgroundColor: [
                     '#1C84C6',
                     '#1AB394',
@@ -71,7 +72,10 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function(value) {
+                            return 'R$ ' + value + ',00';
+                        }
                     }
                 }]
             },
@@ -79,6 +83,6 @@
                 display: true,
                 position: 'right',
             },
-        }
+        },
     });
 </script>
