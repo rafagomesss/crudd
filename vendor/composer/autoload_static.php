@@ -11,6 +11,10 @@ class ComposerStaticInit6e707b5ddb153c97cb03d43b8b13c473
         array (
             'System\\' => 7,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'C' => 
         array (
             'Crud\\' => 5,
@@ -21,6 +25,10 @@ class ComposerStaticInit6e707b5ddb153c97cb03d43b8b13c473
         'System\\' => 
         array (
             0 => __DIR__ . '/..' . '/System',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Crud\\' => 
         array (
