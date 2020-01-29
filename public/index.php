@@ -8,3 +8,4 @@ use System\Session\Session;
 (new Session)->start();
 (new Router)->run();
 
+echo 'final';
